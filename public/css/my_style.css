@@ -1,0 +1,225 @@
+/* Reset + Font */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f9f6f1;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* 헤더 */
+header {
+    text-align: center;
+    background-color: #fff;
+    padding: 1.5rem 1rem;
+}
+
+.video-container iframe {
+    width: 100%;
+    max-width: 600px;
+    height: 315px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+h1 {
+    margin-top: 1rem;
+    font-size: 1.8rem;
+    color: #444;
+}
+
+/* 인삿말 */
+.greeting-box {
+    background-color: #f8f8f8;
+    padding: 2rem 1rem;
+    text-align: center;
+}
+
+.greeting {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 0 auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.greeting h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #555;
+}
+
+.greeting p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #333;
+}
+
+/* 갤러리 */
+.gallery {
+    max-width: 600px;
+    margin: 1rem auto;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item img:hover {
+    transform: scale(1.05);
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+}
+
+.modal img {
+    display: block;
+    max-width: 90%;
+    max-height: 90%;
+    margin: 5% auto;
+    border-radius: 12px;
+}
+
+.close {
+    position: absolute;
+    top: 20px; right: 30px;
+    color: white;
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+/* 지도 */
+.map {
+    max-width: 600px;
+    margin: 1rem auto;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.map-container {
+    margin-bottom: 1rem;
+}
+
+.map-container iframe {
+    width: 100%;
+    height: 300px;
+    border-radius: 12px;
+    border: none;
+}
+
+/* 혼주 영역 */
+.parents {
+    background-color: #fff;
+    padding: 2rem 1rem;
+    max-width: 600px;
+    margin: 1rem auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.parent-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 1rem;
+}
+
+.parent-box {
+    flex: 1 1 45%;
+    min-width: 260px;
+}
+
+.parent-box h3 {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    color: #b28d58;
+}
+
+.parent-info span {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: #555;
+    background-color: #f5f0e6;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+/* 방명록 */
+.message {
+    max-width: 600px;
+    margin: 1rem auto;
+    background: #fff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+.message h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: #b28d58;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+input, textarea {
+    padding: 0.75rem;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 1rem;
+}
+
+button {
+    padding: 0.75rem;
+    background-color: #b28d58;
+    border: none;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #a0784a;
+}
+
+/* 푸터 */
+footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #999;
+    padding: 1rem 0;
+}
