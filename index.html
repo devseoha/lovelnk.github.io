@@ -991,8 +991,8 @@
                         <span class="baptismal"></span>
                     </span>
                 <span class="cell">
-                        <a class="fa fa-phone-alt" href="tel:01012341234"></a>
-                        <a class="fa fa-envelope" href="sms:01012341234"></a>
+                        <a class="fa fa-phone-alt" href="tel:01034473502"></a>
+                        <a class="fa fa-envelope" href="sms:01034473502"></a>
                     </span>
             </div>
             <div class="grd">
@@ -1004,7 +1004,7 @@
                 <span class="cell">
                         <a class="fa fa-phone-alt" href="tel:01012341234"></a>
                         <a class="fa fa-envelope" href="sms:01012341234"></a>
-                    </span>d
+                    </span>
             </div>
             <div class="grd">
                 <span class="cell">신랑 어머니</span>
@@ -2127,7 +2127,7 @@
             <!-- 방명록 작성하기 팝업 -->
             <!--<div class="f-books-write-pop wpopclass">
                 <div class="bg-close-area"></div>
-                <form action="/card-books/rIUcPX1YSX" method="post">
+                <form action="/card-books/notice" method="post">
                     <input type="hidden" name="_token" value="r1JbSUuuVvwNbzlSuVmGmBlHk9G5eu8L8MeQGrWi"/>
                     <div class="frm anibox_books">
                         <a class="fa fa-times-circle clse"></a>
@@ -2623,21 +2623,6 @@
     // 캘린더
 
     function initCalander() {
-        /*
-            let lastDate = new Date('2025', '12', 0);
-            var lastDay = lastDate.getDate();
-
-            console.log("lastDate:"+lastDate.getDay());
-            console.log("lastDay:"+lastDay);
-
-            var week = new Array(0, 1, 2, 3, 4, 5, 6);
-            var marriedDate = new Date('2025-12-01').getDay();
-            var todayLabel = week[marriedDate];
-
-            console.log(marriedDate);
-            console.log(todayLabel);
-        */
-
         var lastDate = moment('2025-12-01').locale('ko');
         var lastDay = parseInt(lastDate.endOf('month').format('D'));
 
@@ -2699,13 +2684,10 @@
                 var t = $("input[name=kt_01]").val();
                 var d = $("input[name=kt_02]").val();
 
-                // TODO. 풀 URL로 보내야함.
-                var kImg = './public/images/temp_1/wedding_1377.jpg';
-
                 Kakao.Share.sendCustom({
                     templateId: 52792, templateArgs: {
-                        idx: "rIUcPX1YSX",
-                        img: kImg,
+                        idx: "notice",
+                        img: "https://devseoha.github.io/lovelnk.github.io/public/images/temp_1/wedding_1588.jpg",
                         title: t,
                         description: d
                     },
@@ -2945,210 +2927,104 @@
         });
     });
 
-    //var myUid = '00';
-    var cardUid = '82495';
-
-    var loadBooksAnysc = true;
-    var booksPage = 0;
-
-
-    function loadBooks() {
-
-        if (!loadBooksAnysc) {
-            console.log('방명록 목록을 가져오는 중입니다..');
-            return;
-        }
-        loadBooksAnysc = false;
-
-        booksPage++;
-        $.ajax({
-            type: 'get',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: {
-                "page": booksPage
-            },
-            url: '/card-books/rIUcPX1YSX',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            success: function (data) {
-
-                if (booksPage >= data.page.totalPageCount) {
-                    $("#more-btn-books-by").detach(); // 더보기 버튼 삭제
-                }
-
-                var c = '';
-                $.each(data.books, function (idx, val) {
-
-                    //console.log(val);
-                    var note = encodeURIComponent(val.note);
-
-                    c += '<li>';
-                    c += '<div class="top clearfix"> ';
-                    c += '<span class="nam"><b>' + val.name + '</b></span>';
-                    c += '<a class="att right cls" onclick="deBooks(this)" data-idx="' + val.idx + '"><b><i class="fa fa-times-circle"></i></b></a>';
-                    if (false) {
-                        c += '<span class="right date">' + val.created_at + '</span>';
-                    }
-                    c += '</div>';
-                    c += '<div class="mid clearfix">';
-                    c += '<p><xmp>' + val.note + '</xmp></p>';
-                    c += '</div>';
-                    c += '</li>';
-                    c += '';
-
-                });
-                $("#load-books-by").append(c);
-
-                loadBooksAnysc = true;
-
-            }
-        });
-    }
-
-    function deBooks(i) {
-
-        var pw = '';
-        var idx = $(i).attr("data-idx");
-
-        //if(myUid != cardUid) {
-        pw = window.prompt('방명록을 작성할 때 입력하신 비밀번호를 입력하세요', '');
-        if (pw == null || pw == "") {
-            return;
-        }
-        //}else{
-        //    if(!window.confirm('정말로 삭제하시겠습니까?','')) { return; }
-        // }
-
-        $.ajax({
-            type: 'delete',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            data: {
-                "password": pw,
-                "idx": idx
-            },
-            url: '/card-books/rIUcPX1YSX',
-            headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-            success: function (data) {
-
-                if (data) {
-                    alert("삭제 되었습니다.");
-                    location.reload();
-                } else {
-                    alert("비밀번호가 일치하지 않아 삭제할 수 없습니다.");
-                }
-
-            },
-            error: function (err) {
-                alert("삭제 중에 문제가 발생했습니다.\r\n문의하기로 연락주시면 확인 즉시 도와드리겠습니다.");
-            }
-        });
-    }
-
-
-    if ($(".books-swiper").is(":visible")) {
-        new Swiper('.books-swiper', {
-            slidesPerView: "auto",
-            spaceBetween: 10,
-            pagination: {
-                el: ".books-swiper .swiper-pagination",
-                clickable: true,
-            },
-        });
-    }
-
-
-    loadBooks();
-
-
     gubook_write_sctop = 0;
+    // 방명록 데이터 가져오기
+    function getGuestbookData() {
+        const data = localStorage.getItem("guestbook");
+        return data ? JSON.parse(data) : [];
+    }
 
-    // 방명록 전체보기 팝업 열기
-    $(".books-all > a.a, #books-all-open").click(function () {
-        gubook_write_sctop = $(window).scrollTop();
-        $("html,body").css("height", "100%");
-        $("html,body").css("overflow-y", "hidden");
-        $("#gustbk_list").css("display", "block");
-    });
+    // 방명록 데이터 저장
+    function saveGuestbookData(data) {
+        localStorage.setItem("guestbook", JSON.stringify(data));
+    }
 
-    // 방명록 작성 팝업 열기
-    $("#books-write-open, .books-all > a.w").click(function () {
-        gubook_write_sctop = $(window).scrollTop();
-        $("html,body").css("height", "100%");
-        $("html,body").css("overflow-y", "hidden");
-        $("#gustbk_op").css("display", "block");
-    });
+    // 방명록 작성
+    function addGuestbookEntry(name, password, note) {
+        const data = getGuestbookData();
+        const newEntry = {
+            id: Date.now(),
+            name,
+            password,
+            note,
+            date: new Date().toLocaleString()
+        };
+        data.push(newEntry);
+        saveGuestbookData(data);
+        renderGuestbook();
+    }
 
-    // 팝업 닫기
-    $("#gustbk_list .clse, #gustbk_op .clse").click(function () {
-        $("html,body").css("height", "auto");
-        $("html,body").css("overflow-y", "visible");
-        $("html, body").animate({scrollTop: gubook_write_sctop}, 10);
-        $(this).parents(".wpopclass").css("display", "none");
-    });
-
-    // 방명록 삭제 버튼 클릭
-    $(".books-swiper .swiper-slide .close").click(function () {
-        deBooks(this);
-    });
-
-    var isBooksWriteLoading = false;
-
-    // 방명록 작성하기 버튼 클릭
-    $("#gustbk_op .att-fdver-btn").click(function () {
-
-
-        var data = $("#gustbk_op form").serializeObject();
-        if (!check.isNotNull(data.name)) {
-            alert("이름을 입력해주세요.");
-            return;
+    // 방명록 수정
+    function editGuestbookEntry(id, password, newNote) {
+        const data = getGuestbookData();
+        const entry = data.find(item => item.id === id);
+        if (entry && entry.password === password) {
+            entry.note = newNote;
+            entry.date = new Date().toLocaleString();
+            saveGuestbookData(data);
+            renderGuestbook();
+        } else {
+            alert("비밀번호가 틀렸습니다.");
         }
-        if (!check.isNotNull(data.password)) {
-            alert("비밀번호를 입력해주세요.");
-            return;
-        }
-        if (!check.isNotNull(data.note)) {
-            alert("방명록 내용을 입력해주세요.");
-            return;
-        }
+    }
 
-        data.name = data.name.trim();
-        if (data.name.length < 1) {
-            alert("이름은 1글자 이상 입력해주세요.");
-            return;
+    // 방명록 삭제
+    function deleteGuestbookEntry(id, password) {
+        let data = getGuestbookData();
+        const entry = data.find(item => item.id === id);
+        if (entry && entry.password === password) {
+            data = data.filter(item => item.id !== id);
+            saveGuestbookData(data);
+            renderGuestbook();
+        } else {
+            alert("비밀번호가 틀렸습니다.");
         }
+    }
 
-        data.password = data.password.trim();
-        if (data.password.length < 4) {
-            alert("비밀번호는 4글자 이상 입력해주세요.");
-            return;
-        }
+    // 방명록 렌더링
+    function renderGuestbook() {
+        const data = getGuestbookData();
+        const list = document.querySelector(".books-open-list-ul");
+        list.innerHTML = "";
 
-        if (!isBooksWriteLoading) {
-            isBooksWriteLoading = true;
-            loading(true);
-            $.ajax({
-                type: 'post',
-                //dataType : "text",
-                //contentType : "application/json; charset=utf-8",
-                data: data,
-                //async : false,
-                url: '/card-books/rIUcPX1YSX',
-                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                success: function (data) {
-                    loading(false);
-                    location.reload();
-                },
-                error: function (err) {
-                    loading(false);
-                    isBooksWriteLoading = false;
-                    console.log(err);
-                    alert("등록 중에 문제가 발생했습니다.\r\n문의하기로 연락주시면 확인 즉시 도와드리겠습니다.");
-                }
+        if (data.length === 0) {
+            const emptyItem = document.createElement("li");
+            emptyItem.className = "nt";
+            emptyItem.textContent = "방명록이 없습니다.";
+            list.appendChild(emptyItem);
+        } else {
+            data.forEach(item => {
+                const li = document.createElement("li");
+                li.className = "on";
+                li.innerHTML = `
+          <div class="top-info">
+            <span class="name">${item.name}</span>
+            <a class="close" onclick="deleteGuestbookEntry(${item.id}, prompt('비밀번호를 입력하세요'))">
+              <span class="xx">✕</span>
+            </a>
+          </div>
+          <div class="note">${item.note}</div>
+          <small>${item.date}</small>
+          <button onclick="editGuestbookEntry(${item.id}, prompt('비밀번호를 입력하세요'), prompt('새로운 내용을 입력하세요'))">수정</button>
+        `;
+                list.appendChild(li);
             });
         }
+    }
 
+    // 초기 렌더링
+    document.addEventListener("DOMContentLoaded", () => {
+        renderGuestbook();
+
+        document.querySelector(".books-w").addEventListener("click", () => {
+            const name = prompt("이름을 입력하세요");
+            const password = prompt("비밀번호를 입력하세요");
+            const note = prompt("방명록 내용을 입력하세요");
+            if (name && password && note) {
+                addGuestbookEntry(name, password, note);
+            }
+        });
     });
-
-
 </script>
 
 <!-- 구글 맵 -->
