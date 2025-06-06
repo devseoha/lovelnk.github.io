@@ -199,7 +199,7 @@ margin-right: 16px;
 
 .account_pop .layer_pop dl dd .kakao_btn::before {
     content:'';
-    background: url(../img/order/kakako_icon.png) no-repeat center;
+    background: url(/public/img/order/kakako_icon.png) no-repeat center;
     width:18px;
     height:17px;
     background-size:20px;

@@ -1697,7 +1697,7 @@
                 const seconds = String(Math.floor((dDay % (1000 * 60)) / 1000)).padStart(2, "0");
                 //clock.innerText = `${day}d ${hours}h ${minutes}m ${seconds}s`;
                 */
-                const now = moment()
+                const now = moment();
                 const wday = moment('2025-12-06 13:40:00')
 
                 const day = parseInt(moment.duration(wday.diff(now)).asDays())
@@ -2984,7 +2984,6 @@
 
             }
         });
-    }
 
     function deBooks(i) {
 
