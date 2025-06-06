@@ -1543,7 +1543,7 @@ background: #fff;
     margin: 0px 6px 0 0;
     text-align: center;
     vertical-align: middle;
-    background: url(/public/img/common/checked.jpg) no-repeat center;
+    background: url(../img/common/checked.jpg) no-repeat center;
 }
 
 .bottom_pop .check_box input[type="checkbox"] + label:active:before,
@@ -1552,7 +1552,7 @@ background: #fff;
 }
 
 .bottom_pop .check_box input[type="checkbox"]:checked + label:before {
-    background: url(/public/img/common/checked_ov.svg) no-repeat center;
+    background: url(../img/common/checked_ov.svg) no-repeat center;
 }
 
 .bottom_pop .policy_list {
