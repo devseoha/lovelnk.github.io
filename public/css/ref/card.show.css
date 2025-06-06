@@ -445,7 +445,6 @@ html,body {
     font-family: 'Nanum Gothic', sans-serif;
 }
 .pageCover {
-    background-image: url("/public/img/bg.webp");
     background-size: 100%;
 
     background-color: #efefef;
@@ -458,11 +457,9 @@ html,body {
     overflow: hidden;
 }
 .pageCover.sk1 {
-    background-image: url("/public/img/bg.webp");
     background-size: 80%;
 }
 .pageCover.sk2 {
-    background-image: url("/public/img/bg.webp");
     background-size: 20%;
 }
 .pageCover.single {
