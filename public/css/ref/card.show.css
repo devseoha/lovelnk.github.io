@@ -457,9 +457,11 @@ html,body {
     overflow: hidden;
 }
 .pageCover.sk1 {
+    background-image: url("../img/bg.webp");
     background-size: 80%;
 }
 .pageCover.sk2 {
+    background-image: url("../img/bg.webp");
     background-size: 20%;
 }
 .pageCover.single {
