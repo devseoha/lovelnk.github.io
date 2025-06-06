@@ -104,7 +104,7 @@ body {
     opacity: 1;
 }
 html,body {
-    /*background-image: url(/public/img/bg.jpg);*/
+    /*background-image: url(../img/bg.jpg);*/
     background: #efefef;
 
     /*--primary-bg-color: #000;
@@ -341,16 +341,16 @@ html,body {
 }
 
 .forsythia-bg {
-    background-image: url('/public/img/bg-effect-forsythia-1.png'), url('/public/img/bg-effect-forsythia-2.png');
+    background-image: url('../img/bg-effect-forsythia-1.png'), url('../img/bg-effect-forsythia-2.png');
 }
 .mist-bg {
-    background-image: url('/public/img/bg-effect-mist-1.png'), url('/public/img/bg-effect-mist-2.png');
+    background-image: url('../img/bg-effect-mist-1.png'), url('../img/bg-effect-mist-2.png');
 }
 .snow-bg {
-    background-image: url('/public/img/bg-effect-sakura-1.png'), url('/public/img/bg-effect-sakura-2.png');
+    background-image: url('../img/bg-effect-sakura-1.png'), url('../img/bg-effect-sakura-2.png');
 }
 .fall-bg {
-    background-image: url('/public/img/bg-effect-fall-1.png'), url('/public/img/bg-effect-fall-2.png');
+    background-image: url('../img/bg-effect-fall-1.png'), url('../img/bg-effect-fall-2.png');
 }
 
 
@@ -1842,7 +1842,7 @@ ul.wayto li.li {
     background-color: rgba(247,158,158,0.15);
     background: #fff;
     /*
-        background-image: url('/public/img/bg_01.jpg');
+        background-image: url('/src/img/bg_01.jpg');
         background-repeat: repeat-y;
         background-size: 200% auto;
         */
@@ -2216,7 +2216,7 @@ ul.wayto li.li {
     text-shadow: 0.3px 0.3px 0.3px #999;
 }
 .sk_c01 .snow-bg {
-    background-image: url("/public/img/s01.png"), url("/public/img/s01.png");
+    background-image: url("/src/img/s01.png"), url("/src/img/s01.png");
 }
 
 
@@ -2330,7 +2330,7 @@ ul.wayto li.li {
     height: 24px;
     line-height: 24px;
     font-weight: bold;
-    background-image: url('/public/img/payment_icon_yellow_small.png');
+    background-image: url('/src/img/payment_icon_yellow_small.png');
     background-position: center;
     background-size: 80% auto;
     background-repeat: no-repeat;
@@ -2394,7 +2394,7 @@ ul.wayto li.li {
     content: '';
     width: 14px;
     height: 14px;
-    background-image: url('/public/img/check@2x.png');
+    background-image: url('../img/check@2x.png');
     background-size: 10px auto;
     background-repeat: no-repeat;
     background-position: center center;
@@ -2793,7 +2793,7 @@ ul.wayto li.li {
 
     color: #444;
     /*padding-left: 33px;
-    background-image: url('/public/img/ceflower.png');
+    background-image: url('/src/img/ceflower.png');
     background-size: auto 35px;
     background-position: left center;
     background-repeat: no-repeat;*/
@@ -2859,16 +2859,16 @@ ul.wayto li.li {
     margin-bottom: 0;
 }
 .bttmGarlandWrapper .hm_ul li:nth-child(1) {
-    background-image: url('/public/img/svg_heart_gray.svg');
+    background-image: url('/src/img/svg_heart_gray.svg');
     background-size: 13px auto;
 }
 .bttmGarlandWrapper .hm_ul li:nth-child(2) {
-    background-image: url('/public/img/svg_date_gray.svg');
+    background-image: url('/src/img/svg_date_gray.svg');
     background-size: 12px auto;
     background-position: 1.5px center;
 }
 .bttmGarlandWrapper .hm_ul li:nth-child(3) {
-    background-image: url('/public/img/svg_location_gray.svg');
+    background-image: url('/src/img/svg_location_gray.svg');
     background-size: 11px auto;
     background-position: 1.5px center;
 }
@@ -2886,7 +2886,7 @@ ul.wayto li.li {
 .kkt-share {
     font-size: 1.3rem;
     display: inline-block;
-    background-image: url('/public/img/icon-kakaotalk.svg');
+    background-image: url('/src/img/icon-kakaotalk.svg');
     background-repeat: no-repeat;
     background-position: left center;
     background-size: auto 16px;
@@ -3036,7 +3036,7 @@ ul.wayto li.li {
     /*background-size: 20px auto;
     background-repeat: no-repeat;
     background-position: left 20px top -10px;
-    background-image: url('/public/img/svg_rsvp2.svg');*/
+    background-image: url('/src/img/svg_rsvp2.svg');*/
 
     width: 330px;
     max-width: 100%;
@@ -3087,16 +3087,16 @@ ul.wayto li.li {
     margin-bottom: 0;
 }
 #pop_rsvp .hangmock li:nth-child(1) {
-    background-image: url('/public/img/svg_heart.svg');
+    background-image: url('/src/img/svg_heart.svg');
     background-size: 13px auto;
 }
 #pop_rsvp .hangmock li:nth-child(2) {
-    background-image: url('/public/img/svg_date.svg');
+    background-image: url('/src/img/svg_date.svg');
     background-size: 12px auto;
     background-position: 1.5px center;
 }
 #pop_rsvp .hangmock li:nth-child(3) {
-    background-image: url('/public/img/svg_location.svg');
+    background-image: url('/src/img/svg_location.svg');
     background-size: 11px auto;
     background-position: 1.5px center;
 }
@@ -3128,7 +3128,7 @@ ul.wayto li.li {
     background-size: 10px auto;
     background-repeat: no-repeat;
     background-position: 0 center;
-    background-image: url('/public/img/svg_rsvp.svg');
+    background-image: url('/src/img/svg_rsvp.svg');
     display: inline-block;
     padding-left: 18px;
 }
@@ -3248,10 +3248,10 @@ ul.wayto li.li {
     margin: 0 2px;
 }
 .n_ic.youtube {
-    background-image: url('/public/img/ic_youtube.svg');
+    background-image: url('/src/img/ic_youtube.svg');
 }
 .n_ic.insta {
-    background-image: url('/public/img/ic_insta.svg');
+    background-image: url('/src/img/ic_insta.svg');
 }
 
 
@@ -3675,7 +3675,7 @@ img.daycard { display: none !important; }
     left: 0;
     width: 15px;
     height: 15px;
-    background-image: url(/public/img/card/ico_map01.png);
+    background-image: url(/src/img/card/ico_map01.png);
     margin-top: -8px;
     background-size: auto 15px;
 }
@@ -3693,7 +3693,7 @@ img.daycard { display: none !important; }
     align-items: center;
     font-size: 1.4rem;
     height: 64px;
-    background-image: url(/public/img/card/bg_line01.png);
+    background-image: url(/src/img/card/bg_line01.png);
     background-size: auto 1px;
     background-repeat: repeat-x;
     padding: 0 33px;
@@ -3751,15 +3751,15 @@ ul.wayto .navi_button > span:before {
     left: 0;
     width: 17px;
     height: 17px;
-    background-image: url(/public/img/card/ico_nav03.png);
+    background-image: url(/src/img/card/ico_nav03.png);
     background-size: 17px auto;
     margin-top: -8.5px;
 }
 ul.wayto .navi_button:nth-child(2) > span:before {
-    background-image: url(/public/img/card/ico_nav02.png);
+    background-image: url(/src/img/card/ico_nav02.png);
 }
 ul.wayto .navi_button:nth-child(3) > span:before {
-    background-image: url(/public/img/card/ico_nav01.png);
+    background-image: url(/src/img/card/ico_nav01.png);
 }
 
 
@@ -4261,13 +4261,13 @@ ul.wayto .navi_button:nth-child(3) > span:before {
     left: 0;
     width: 15px;
     height: 15px;
-    background-image: url(/public/img/card/ico_map01.png);
+    background-image: url(/src/img/card/ico_map01.png);
     background-repeat: no-repeat;
     margin-top: -8px;
     background-size: auto 15px;
 }
 .t-btn > span.ic.img:before {
-    background-image: url(/public/img/ico_img01.svg);
+    background-image: url(/src/img/ico_img01.svg);
     background-size: auto 14px;
     margin-top: -7px;
 }
@@ -4350,7 +4350,7 @@ ul.wayto .navi_button:nth-child(3) > span:before {
 .main-img-parent .rpd.rpd01 {
     top: 0; left: 0;
     width: 100%;
-    background-image: url(/public/img/card/rippid-wh-left.png);
+    background-image: url(/src/img/card/rippid-wh-left.png);
     background-size: auto 100%;
     background-position: left top;
     height: 100%;
@@ -4360,7 +4360,7 @@ ul.wayto .navi_button:nth-child(3) > span:before {
 .main-img-parent .rpd.rpd02 {
     top: 0; right: -1px;
     width: 100%;
-    background-image: url(/public/img/card/rippid-wh-right.png);
+    background-image: url(/src/img/card/rippid-wh-right.png);
     background-size: auto 100%;
     background-position: right top;
     height: 100%;
@@ -4371,7 +4371,7 @@ ul.wayto .navi_button:nth-child(3) > span:before {
 .main-img-parent .rpd.rpd03 {
     top: 0; left: 0;
     width: 100%;
-    background-image: url(/public/img/card/rippid-wh-top.png);
+    background-image: url(/src/img/card/rippid-wh-top.png);
     background-size: 100% auto;
     background-position: top left;
     height: 100%;
@@ -4382,7 +4382,7 @@ ul.wayto .navi_button:nth-child(3) > span:before {
 .main-img-parent .rpd.rpd04 {
     bottom: -1px; left: 0;
     width: 100%;
-    background-image: url(/public/img/card/rippid-wh-bottom.png);
+    background-image: url(/src/img/card/rippid-wh-bottom.png);
     background-size: 100% auto;
     background-position: bottom left;
     height: 100%;
@@ -4827,31 +4827,31 @@ ul.wayto .navi_button:nth-child(3) > span:before {
 
 
 .bg_theme_brown .end-img-parent .rpd.rpd01,
-.bg_theme_brown .main-img-parent .rpd.rpd01 { background-image: url(/public/img/card/rippid-br-left.png); }
+.bg_theme_brown .main-img-parent .rpd.rpd01 { background-image: url(/src/img/card/rippid-br-left.png); }
 .bg_theme_brown .end-img-parent .rpd.rpd02,
-.bg_theme_brown .main-img-parent .rpd.rpd02 { background-image: url(/public/img/card/rippid-br-right.png); }
+.bg_theme_brown .main-img-parent .rpd.rpd02 { background-image: url(/src/img/card/rippid-br-right.png); }
 .bg_theme_brown .end-img-parent .rpd.rpd03,
-.bg_theme_brown .main-img-parent .rpd.rpd03 { background-image: url(/public/img/card/rippid-br-top.png); }
+.bg_theme_brown .main-img-parent .rpd.rpd03 { background-image: url(/src/img/card/rippid-br-top.png); }
 .bg_theme_brown .end-img-parent .rpd.rpd04,
-.bg_theme_brown .main-img-parent .rpd.rpd04 { background-image: url(/public/img/card/rippid-br-bottom.png); }
+.bg_theme_brown .main-img-parent .rpd.rpd04 { background-image: url(/src/img/card/rippid-br-bottom.png); }
 
 .bg_theme_purple .end-img-parent .rpd.rpd01,
-.bg_theme_purple .main-img-parent .rpd.rpd01 { background-image: url(/public/img/card/rippid-pu-left.png); }
+.bg_theme_purple .main-img-parent .rpd.rpd01 { background-image: url(/src/img/card/rippid-pu-left.png); }
 .bg_theme_purple .end-img-parent .rpd.rpd02,
-.bg_theme_purple .main-img-parent .rpd.rpd02 { background-image: url(/public/img/card/rippid-pu-right.png); }
+.bg_theme_purple .main-img-parent .rpd.rpd02 { background-image: url(/src/img/card/rippid-pu-right.png); }
 .bg_theme_purple .end-img-parent .rpd.rpd03,
-.bg_theme_purple .main-img-parent .rpd.rpd03 { background-image: url(/public/img/card/rippid-pu-top.png); }
+.bg_theme_purple .main-img-parent .rpd.rpd03 { background-image: url(/src/img/card/rippid-pu-top.png); }
 .bg_theme_purple .end-img-parent .rpd.rpd04,
-.bg_theme_purple .main-img-parent .rpd.rpd04 { background-image: url(/public/img/card/rippid-pu-bottom.png); }
+.bg_theme_purple .main-img-parent .rpd.rpd04 { background-image: url(/src/img/card/rippid-pu-bottom.png); }
 
 .bg_theme_pink .end-img-parent .rpd.rpd01,
-.bg_theme_pink .main-img-parent .rpd.rpd01 { background-image: url(/public/img/card/rippid-pi-left.png); }
+.bg_theme_pink .main-img-parent .rpd.rpd01 { background-image: url(/src/img/card/rippid-pi-left.png); }
 .bg_theme_pink .end-img-parent .rpd.rpd02,
-.bg_theme_pink .main-img-parent .rpd.rpd02 { background-image: url(/public/img/card/rippid-pi-right.png); }
+.bg_theme_pink .main-img-parent .rpd.rpd02 { background-image: url(/src/img/card/rippid-pi-right.png); }
 .bg_theme_pink .end-img-parent .rpd.rpd03,
-.bg_theme_pink .main-img-parent .rpd.rpd03 { background-image: url(/public/img/card/rippid-pi-top.png); }
+.bg_theme_pink .main-img-parent .rpd.rpd03 { background-image: url(/src/img/card/rippid-pi-top.png); }
 .bg_theme_pink .end-img-parent .rpd.rpd04,
-.bg_theme_pink .main-img-parent .rpd.rpd04 { background-image: url(/public/img/card/rippid-pi-bottom.png); }
+.bg_theme_pink .main-img-parent .rpd.rpd04 { background-image: url(/src/img/card/rippid-pi-bottom.png); }
 
 
 
