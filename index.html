@@ -3388,19 +3388,23 @@
     
     // 전체화면 토글 기능
     function toggleFullscreen() {
-        const videoContainer = document.querySelector('.main-img-parent');
+        const video = document.getElementById('main-video');
         const fullscreenIcon = document.getElementById('fullscreen-icon');
         
-        if (!document.fullscreenElement) {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
             // 전체화면 진입
-            if (videoContainer.requestFullscreen) {
-                videoContainer.requestFullscreen();
-            } else if (videoContainer.webkitRequestFullscreen) {
-                videoContainer.webkitRequestFullscreen();
-            } else if (videoContainer.msRequestFullscreen) {
-                videoContainer.msRequestFullscreen();
+            if (video.requestFullscreen) {
+                video.requestFullscreen().catch(err => {
+                    console.log('Fullscreen error:', err);
+                });
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            } else if (video.msRequestFullscreen) {
+                video.msRequestFullscreen();
+            } else if (video.webkitEnterFullscreen) {
+                // iOS Safari용
+                video.webkitEnterFullscreen();
             }
-            fullscreenIcon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>'; // 전체화면 종료 아이콘
         } else {
             // 전체화면 종료
             if (document.exitFullscreen) {
@@ -3409,8 +3413,9 @@
                 document.webkitExitFullscreen();
             } else if (document.msExitFullscreen) {
                 document.msExitFullscreen();
+            } else if (video.webkitExitFullscreen) {
+                video.webkitExitFullscreen();
             }
-            fullscreenIcon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>'; // 전체화면 아이콘
         }
     }
     
@@ -3419,9 +3424,24 @@
     document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
     document.addEventListener('msfullscreenchange', updateFullscreenIcon);
     
+    // iOS Safari 전용 이벤트
+    const video = document.getElementById('main-video');
+    if (video) {
+        video.addEventListener('webkitbeginfullscreen', updateFullscreenIcon);
+        video.addEventListener('webkitendfullscreen', updateFullscreenIcon);
+    }
+    
     function updateFullscreenIcon() {
         const fullscreenIcon = document.getElementById('fullscreen-icon');
-        if (document.fullscreenElement || document.webkitFullscreenElement || document.msFullscreenElement) {
+        const video = document.getElementById('main-video');
+        
+        // 다양한 브라우저의 전체화면 상태 확인
+        const isFullscreen = document.fullscreenElement || 
+                           document.webkitFullscreenElement || 
+                           document.msFullscreenElement ||
+                           (video && video.webkitDisplayingFullscreen);
+        
+        if (isFullscreen) {
             fullscreenIcon.innerHTML = '<path d="M5 16h3v3h2v-5H5v2zm3-8H5v2h5V5H8v3zm6 11h2v-3h3v-2h-5v5zm2-11V5h-2v5h5V8h-3z"/>'; // 전체화면 종료 아이콘
         } else {
             fullscreenIcon.innerHTML = '<path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>'; // 전체화면 아이콘
