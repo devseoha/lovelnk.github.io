@@ -2687,7 +2687,9 @@
                     .guest_book .area #guestbook-cards,
                     .guest_book #guestbook-cards,
                     #guestbook-cards,
-                    ul#guestbook-cards {
+                    ul#guestbook-cards,
+                    #guestbook-preview-grid,
+                    #load-books-by {
                         display: grid !important;
                         grid-template-columns: repeat(2, 1fr) !important;
                         grid-gap: 8px !important;
@@ -2703,7 +2705,9 @@
                     .guest_book .area #guestbook-cards > li,
                     .guest_book #guestbook-cards > li,
                     #guestbook-cards > li,
-                    ul#guestbook-cards > li {
+                    ul#guestbook-cards > li,
+                    #guestbook-preview-grid > div,
+                    #load-books-by > li {
                         width: auto !important;
                         max-width: none !important;
                         min-width: 0 !important;
@@ -2718,7 +2722,9 @@
                     .guest_book .area #guestbook-cards > li > .b,
                     .guest_book #guestbook-cards > li > .b,
                     #guestbook-cards > li > .b,
-                    ul#guestbook-cards > li > .b {
+                    ul#guestbook-cards > li > .b,
+                    #guestbook-preview-grid > div,
+                    #load-books-by > li {
                         flex: 1 !important;
                         display: flex !important;
                         flex-direction: column !important;
@@ -2735,7 +2741,9 @@
                     .guest_book .area #guestbook-cards > li .message_text,
                     .guest_book #guestbook-cards > li .message_text,
                     #guestbook-cards > li .message_text,
-                    ul#guestbook-cards > li .message_text {
+                    ul#guestbook-cards > li .message_text,
+                    #guestbook-preview-grid .message_text,
+                    #load-books-by .message_text {
                         flex: 1 !important;
                         display: flex !important;
                         align-items: flex-start !important;
