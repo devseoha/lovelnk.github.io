@@ -4116,7 +4116,7 @@
         const hasMore = item.note.length > 50;
         
         return `
-            <div class="b" style="background: linear-gradient(135deg, rgba(248,249,250,0.8) 0%, rgba(233,236,239,0.8) 100%), url('./public/img/back.jpg'); background-size: cover, cover; background-position: center, center; border: 1px solid #dee2e6; border-radius: 12px; position: relative; height: 300px; color: #333; padding: 25px 20px 60px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
+            <div class="b" style="background: linear-gradient(135deg, rgba(248,249,250,0.8) 0%, rgba(233,236,239,0.8) 100%), url('./public/img/back.jpg'); background-size: cover, cover; background-position: center, center; border: 1px solid #dee2e6; border-radius: 12px; position: relative; height: 320px; color: #333; padding: 25px 20px 50px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
                 <div class="close" onclick="deleteGuestbookEntry(${item.id}, prompt('비밀번호를 입력하세요'))" 
                      style="position: absolute; top: 12px; right: 15px; color: #adb5bd; cursor: pointer; font-size: 16px; transition: color 0.2s;" onmouseover="this.style.color='#6c757d'" onmouseout="this.style.color='#adb5bd'">✕</div>
                 
@@ -4129,10 +4129,10 @@
                     </div>
                 </div>
                 
-                <div class="bottom" style="font-size: 12px; display: flex; justify-content: space-between; align-items: center; padding-top: 12px; border-top: 1px solid rgba(0,0,0,0.08); margin-top: auto;">
+                <div class="bottom" style="font-size: 12px; display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.08); position: absolute; bottom: 15px; left: 20px; right: 20px;">
                     <span style="color: #adb5bd; font-size: 10px;">${item.date}</span>
                     <button onclick="startEditGuestbookEntry(${item.id}, prompt('비밀번호를 입력하세요'))" 
-                            style="background: #495057; color: #fff; border: none; padding: 5px 8px; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 400; transition: background 0.2s;" onmouseover="this.style.background='#343a40'" onmouseout="this.style.background='#495057'">수정</button>
+                            style="background: #495057; color: #fff; border: none; padding: 4px 6px; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 400; transition: background 0.2s;" onmouseover="this.style.background='#343a40'" onmouseout="this.style.background='#495057'">수정</button>
                 </div>
             </div>
         `;
