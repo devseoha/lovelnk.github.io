@@ -2633,6 +2633,55 @@
                     align-items: flex-start !important;
                 }
                 
+                /* 모바일 환경에서 방명록 카드 균등 배치 */
+                @media screen and (max-width: 768px) {
+                    #guestbook-cards {
+                        display: flex !important;
+                        flex-wrap: wrap !important;
+                        gap: 8px !important;
+                    }
+                    
+                    #guestbook-cards > li {
+                        width: calc(50% - 4px) !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        box-sizing: border-box !important;
+                    }
+                    
+                    #guestbook-cards > li > .b {
+                        flex: 1 !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        height: 100% !important;
+                        background: #fff !important;
+                        padding: 14px !important;
+                        box-sizing: border-box !important;
+                        border-radius: 5px !important;
+                        min-height: 120px !important;
+                    }
+                    
+                    #guestbook-cards > li .message_text {
+                        flex: 1 !important;
+                        display: flex !important;
+                        align-items: flex-start !important;
+                    }
+                    
+                    #guestbook-cards > li .message_text p {
+                        font-size: 14px !important;
+                        line-height: 1.4 !important;
+                    }
+                    
+                    #guestbook-cards > li .message_top .name {
+                        font-size: 13px !important;
+                    }
+                    
+                    #guestbook-cards > li .message_top .date {
+                        font-size: 12px !important;
+                    }
+                }
+                
                 .books-swiper {
                     margin: 5px 5px 5px 5px;
                     margin-top: 5px;
