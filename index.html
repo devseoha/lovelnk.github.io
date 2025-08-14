@@ -2377,7 +2377,10 @@
                         </div>
                         <div class="clearfix" style="margin-top: 10px;">
 
-                            <textarea name="note" class="put" placeholder="방명록 내용 (100자 이내)" autocomplete="off" maxlength="100"></textarea>
+                            <textarea name="note" class="put" placeholder="방명록 내용 (130자 이내)" autocomplete="off" maxlength="130"></textarea>
+                            <div style="text-align: right; margin-top: 5px; font-size: 12px; color: #999;">
+                                <span id="note-counter">0</span> / 130자
+                            </div>
                         </div>
                         <div style="margin-top: 10px;">
                             <a class="btn">방명록 작성</a>
@@ -4061,8 +4064,14 @@
         });
     }
 
-    // 텍스트 자르기 함수
-    function truncateText(text, maxLength = 50) {
+    // 텍스트 자르기 함수 (기본: 미리보기용)
+    function truncateText(text, maxLength = 75) {
+        if (text.length <= maxLength) return text;
+        return text.substring(0, maxLength) + '...';
+    }
+
+    // 전체보기용 텍스트 자르기 함수
+    function truncateTextForFullview(text, maxLength = 130) {
         if (text.length <= maxLength) return text;
         return text.substring(0, maxLength) + '...';
     }
@@ -4111,9 +4120,10 @@
     }
 
     // 방명록 카드 HTML 생성 (공통 함수)
-    function createGuestbookCardHTML(item) {
-        const shortNote = truncateText(item.note, 50);
-        const hasMore = item.note.length > 50;
+    function createGuestbookCardHTML(item, isFullview = false) {
+        const maxLength = isFullview ? 130 : 75;
+        const shortNote = isFullview ? truncateTextForFullview(item.note) : truncateText(item.note);
+        const hasMore = item.note.length > maxLength;
         
         return `
             <div class="b" style="background: linear-gradient(135deg, rgba(248,249,250,0.8) 0%, rgba(233,236,239,0.8) 100%), url('./public/img/back.jpg'); background-size: cover, cover; background-position: center, center; border: 1px solid #dee2e6; border-radius: 12px; position: relative; height: 320px; color: #333; padding: 25px 20px 50px 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.04); display: flex; flex-direction: column;">
@@ -4247,7 +4257,7 @@
         
         pageData.forEach(item => {
             const card = document.createElement("div");
-            card.innerHTML = createGuestbookCardHTML(item);
+            card.innerHTML = createGuestbookCardHTML(item, true); // 전체보기에서는 130글자까지
             grid.appendChild(card);
         });
         
@@ -4289,6 +4299,26 @@
         document.querySelector("#gustbk_op .clse").addEventListener("click", () => {
             document.getElementById("gustbk_op").style.display = "none";
         });
+
+        // 방명록 글자수 카운터
+        const noteTextarea = document.querySelector('textarea[name="note"]');
+        const noteCounter = document.getElementById('note-counter');
+        
+        if (noteTextarea && noteCounter) {
+            noteTextarea.addEventListener('input', () => {
+                const currentLength = noteTextarea.value.length;
+                noteCounter.textContent = currentLength;
+                
+                // 130자 가까워지면 색상 변경
+                if (currentLength > 120) {
+                    noteCounter.style.color = '#ff6b6b';
+                } else if (currentLength > 100) {
+                    noteCounter.style.color = '#ffa500';
+                } else {
+                    noteCounter.style.color = '#999';
+                }
+            });
+        }
 
         // 방명록 제출 이벤트
         document.querySelector("#gustbk_op .att-fdver-btn").addEventListener("click", (e) => {
