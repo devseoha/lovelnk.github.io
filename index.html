@@ -1172,7 +1172,7 @@
 
 
                         <!-- 비디오 컨트롤 버튼들 -->
-                        <div id="video-controls" style="position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 10px;">
+                        <div id="video-controls" style="position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 10px; opacity: 0; transition: opacity 0.3s ease;">
                             <!-- 정지/재생 토글 버튼 -->
                             <button id="play-pause-toggle" onclick="togglePlayPause()" style="background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
                                 <svg id="play-pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
@@ -2799,34 +2799,34 @@
                             <textarea id="actnm-1-1" class="txtnone">카카오뱅크 3333-01-1234567 김소년</textarea>
                             <div class="quick"></div>
                         </li>
-                        <li class="ft-gowun-bold ro1">
-                            <a class="holder" onclick="copy_to_clipboard2('actnm-1-2')">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4V8c0-1.103-.897-2-2-2h-6V4h10v10z" fill="currentColor"/>
-                                </svg>
-                                <span>신랑 아버지</span>
-                            </a>
-                            <a class="accounts" onclick="copy_to_clipboard2('actnm-1-2')">
-                                <span class="bnk">농협은행</span>
-                                <span class="nmb">111-22-333333</span>
-                            </a>
-                            <textarea id="actnm-1-2" class="txtnone">농협은행 111-22-333333 아버지</textarea>
-                            <div class="quick"></div>
-                        </li>
-                        <li class="ft-gowun-bold ro1">
-                            <a class="holder" onclick="copy_to_clipboard2('actnm-1-3')">
-                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4V8c0-1.103-.897-2-2-2h-6V4h10v10z" fill="currentColor"/>
-                                </svg>
-                                <span>신랑 어머니</span>
-                            </a>
-                            <a class="accounts" onclick="copy_to_clipboard2('actnm-1-3')">
-                                <span class="bnk">우리은행</span>
-                                <span class="nmb">123-456-789012</span>
-                            </a>
-                            <textarea id="actnm-1-3" class="txtnone">우리은행 123-456-789012 어머니</textarea>
-                            <div class="quick"></div>
-                        </li>
+<!--                        <li class="ft-gowun-bold ro1">-->
+<!--                            <a class="holder" onclick="copy_to_clipboard2('actnm-1-2')">-->
+<!--                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                    <path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4V8c0-1.103-.897-2-2-2h-6V4h10v10z" fill="currentColor"/>-->
+<!--                                </svg>-->
+<!--                                <span>신랑 아버지</span>-->
+<!--                            </a>-->
+<!--                            <a class="accounts" onclick="copy_to_clipboard2('actnm-1-2')">-->
+<!--                                <span class="bnk">농협은행</span>-->
+<!--                                <span class="nmb">111-22-333333</span>-->
+<!--                            </a>-->
+<!--                            <textarea id="actnm-1-2" class="txtnone">농협은행 111-22-333333 아버지</textarea>-->
+<!--                            <div class="quick"></div>-->
+<!--                        </li>-->
+<!--                        <li class="ft-gowun-bold ro1">-->
+<!--                            <a class="holder" onclick="copy_to_clipboard2('actnm-1-3')">-->
+<!--                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">-->
+<!--                                    <path d="M20 2H10c-1.103 0-2 .897-2 2v4H4c-1.103 0-2 .897-2 2v10c0 1.103.897 2 2 2h10c1.103 0 2-.897 2-2v-4h4c1.103 0 2-.897 2-2V4c0-1.103-.897-2-2-2zM4 20V10h10l.002 10H4zm16-6h-4V8c0-1.103-.897-2-2-2h-6V4h10v10z" fill="currentColor"/>-->
+<!--                                </svg>-->
+<!--                                <span>신랑 어머니</span>-->
+<!--                            </a>-->
+<!--                            <a class="accounts" onclick="copy_to_clipboard2('actnm-1-3')">-->
+<!--                                <span class="bnk">우리은행</span>-->
+<!--                                <span class="nmb">123-456-789012</span>-->
+<!--                            </a>-->
+<!--                            <textarea id="actnm-1-3" class="txtnone">우리은행 123-456-789012 어머니</textarea>-->
+<!--                            <div class="quick"></div>-->
+<!--                        </li>-->
                     </ul>
                 </div>
                 <div class="pack_wrap clearfix ">
@@ -3693,6 +3693,20 @@
                 } else {
                 }
             }, 2000);
+            
+            // 동영상 컨트롤 hover 효과 추가
+            const videoContainer = document.querySelector('.main-img-parent');
+            const videoControls = document.getElementById('video-controls');
+            
+            if (videoContainer && videoControls) {
+                videoContainer.addEventListener('mouseenter', () => {
+                    videoControls.style.opacity = '1';
+                });
+                
+                videoContainer.addEventListener('mouseleave', () => {
+                    videoControls.style.opacity = '0';
+                });
+            }
         }
     }
     
