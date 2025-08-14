@@ -2682,94 +2682,20 @@
                     }
                 }
                 
-                /* iPhone 및 소형 모바일 디바이스 대응 - 강력한 덮어쓰기 */
-                @media screen and (max-width: 480px) {
-                    .guest_book .area #guestbook-cards,
-                    .guest_book #guestbook-cards,
-                    #guestbook-cards,
-                    ul#guestbook-cards,
-                    #guestbook-preview-grid,
-                    #load-books-by {
+                /* 모바일 방명록 카드 균등 배치 - 심플 버전 */
+                @media screen and (max-width: 768px) {
+                    div#guestbook-preview-grid[style] {
                         display: grid !important;
-                        grid-template-columns: repeat(2, 1fr) !important;
-                        grid-gap: 8px !important;
-                        gap: 8px !important;
-                        width: 100% !important;
-                        margin: 0 !important;
-                        padding: 0 !important;
-                        list-style: none !important;
-                        justify-content: stretch !important;
-                        align-items: stretch !important;
+                        grid-template-columns: 1fr 1fr !important;
+                        gap: 15px !important;
+                        padding: 10px !important;
                     }
                     
-                    .guest_book .area #guestbook-cards > li,
-                    .guest_book #guestbook-cards > li,
-                    #guestbook-cards > li,
-                    ul#guestbook-cards > li,
-                    #guestbook-preview-grid > div,
-                    #load-books-by > li {
-                        width: auto !important;
-                        max-width: none !important;
-                        min-width: 0 !important;
+                    div#guestbook-preview-grid > div {
                         display: flex !important;
                         flex-direction: column !important;
-                        margin: 0 !important;
-                        padding: 0 !important;
-                        box-sizing: border-box !important;
-                        flex: 1 !important;
-                    }
-                    
-                    .guest_book .area #guestbook-cards > li > .b,
-                    .guest_book #guestbook-cards > li > .b,
-                    #guestbook-cards > li > .b,
-                    ul#guestbook-cards > li > .b,
-                    #guestbook-preview-grid > div,
-                    #load-books-by > li {
-                        flex: 1 !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        height: auto !important;
-                        min-height: 120px !important;
-                        background: #fff !important;
-                        padding: 12px !important;
-                        box-sizing: border-box !important;
-                        border-radius: 5px !important;
-                        margin: 0 !important;
-                        width: 100% !important;
-                    }
-                    
-                    .guest_book .area #guestbook-cards > li .message_text,
-                    .guest_book #guestbook-cards > li .message_text,
-                    #guestbook-cards > li .message_text,
-                    ul#guestbook-cards > li .message_text,
-                    #guestbook-preview-grid .message_text,
-                    #load-books-by .message_text {
-                        flex: 1 !important;
-                        display: flex !important;
-                        align-items: flex-start !important;
-                    }
-                    
-                    .guest_book .area #guestbook-cards > li .message_text p,
-                    .guest_book #guestbook-cards > li .message_text p,
-                    #guestbook-cards > li .message_text p,
-                    ul#guestbook-cards > li .message_text p {
-                        font-size: 13px !important;
-                        line-height: 1.4 !important;
-                        word-break: break-word !important;
-                    }
-                    
-                    .guest_book .area #guestbook-cards > li .message_top .name,
-                    .guest_book #guestbook-cards > li .message_top .name,
-                    #guestbook-cards > li .message_top .name,
-                    ul#guestbook-cards > li .message_top .name {
-                        font-size: 12px !important;
-                    }
-                    
-                    .guest_book .area #guestbook-cards > li .message_top .date,
-                    .guest_book #guestbook-cards > li .message_top .date,
-                    #guestbook-cards > li .message_top .date,
-                    ul#guestbook-cards > li .message_top .date {
-                        font-size: 11px !important;
+                        height: 100% !important;
+                        min-height: 140px !important;
                     }
                 }
                 
