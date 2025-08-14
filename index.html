@@ -2604,8 +2604,6 @@
                 #guestbook-cards {
                     display: flex !important;
                     flex-wrap: wrap !important;
-                    justify-content: space-between !important;
-                    align-items: stretch !important;
                     gap: 10px !important;
                 }
                 
@@ -2615,10 +2613,24 @@
                     flex-direction: column !important;
                     margin: 0 !important;
                     padding: 0 !important;
+                    box-sizing: border-box !important;
                 }
                 
                 #guestbook-cards > li > .b {
                     flex: 1 !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    height: 100% !important;
+                    background: #fff !important;
+                    padding: 16px !important;
+                    box-sizing: border-box !important;
+                    border-radius: 5px !important;
+                }
+                
+                #guestbook-cards > li .message_text {
+                    flex: 1 !important;
+                    display: flex !important;
+                    align-items: flex-start !important;
                 }
                 
                 .books-swiper {
