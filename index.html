@@ -2682,6 +2682,57 @@
                     }
                 }
                 
+                /* iPhone 및 소형 모바일 디바이스 대응 */
+                @media screen and (max-width: 414px) {
+                    #guestbook-cards {
+                        display: grid !important;
+                        grid-template-columns: 1fr 1fr !important;
+                        gap: 8px !important;
+                        width: 100% !important;
+                    }
+                    
+                    #guestbook-cards > li {
+                        width: 100% !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                        box-sizing: border-box !important;
+                    }
+                    
+                    #guestbook-cards > li > .b {
+                        flex: 1 !important;
+                        display: flex !important;
+                        flex-direction: column !important;
+                        height: 100% !important;
+                        background: #fff !important;
+                        padding: 12px !important;
+                        box-sizing: border-box !important;
+                        border-radius: 5px !important;
+                        min-height: 100px !important;
+                    }
+                    
+                    #guestbook-cards > li .message_text {
+                        flex: 1 !important;
+                        display: flex !important;
+                        align-items: flex-start !important;
+                    }
+                    
+                    #guestbook-cards > li .message_text p {
+                        font-size: 13px !important;
+                        line-height: 1.4 !important;
+                        word-break: break-word !important;
+                    }
+                    
+                    #guestbook-cards > li .message_top .name {
+                        font-size: 12px !important;
+                    }
+                    
+                    #guestbook-cards > li .message_top .date {
+                        font-size: 11px !important;
+                    }
+                }
+                
                 .books-swiper {
                     margin: 5px 5px 5px 5px;
                     margin-top: 5px;
