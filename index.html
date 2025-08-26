@@ -4700,13 +4700,7 @@
                 
                 saveVisitorData(visitorData);
                 sendToGoogleSheets(visitorData);
-                
-                // Firebase에도 저장
-                if (window.saveVisitorToFirebase) {
-                    window.saveVisitorToFirebase(visitorData);
-                }
-                
-                console.log('✅ 방문자 정보 수집 및 Firebase/Google Sheets 업로드 완료:', visitorData);
+                console.log('✅ 방문자 정보 수집 및 Google Sheets 업로드 완료:', visitorData);
             })
             .catch(error => {
                 console.warn('IP 정보 수집 실패, 기본 정보만 저장:', error);
@@ -4717,11 +4711,6 @@
                 
                 saveVisitorData(visitorData);
                 sendToGoogleSheets(visitorData);
-                
-                // Firebase에도 저장
-                if (window.saveVisitorToFirebase) {
-                    window.saveVisitorToFirebase(visitorData);
-                }
             });
     }
     
