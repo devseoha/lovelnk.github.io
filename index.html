@@ -331,6 +331,100 @@
             remove,
             update
         };
+
+        // Firebase 참석 데이터 저장 함수
+        window.saveAttendanceToFirebase = function(attendanceData) {
+            console.log('🔄 Firebase 참석 정보 저장 시작:', attendanceData);
+            try {
+                const attendanceRef = ref(database, 'attendance');
+                const newAttendance = {
+                    ...attendanceData,
+                    timestamp_utc: new Date().toISOString(),
+                    timestamp_kst: new Date(Date.now() + (9 * 60 * 60 * 1000)).toISOString(),
+                    created_at: Date.now()
+                };
+                
+                console.log('📝 저장할 데이터:', newAttendance);
+                
+                push(attendanceRef, newAttendance)
+                    .then((result) => {
+                        console.log('✅ Firebase 참석 정보 저장 완료:', result.key);
+                        alert('참석 의사가 전달되었습니다.\n감사합니다! 💝');
+                    })
+                    .catch((error) => {
+                        console.error('❌ Firebase 참석 정보 저장 실패:', error);
+                        alert('참석 정보 저장에 실패했습니다. 다시 시도해주세요.');
+                    });
+            } catch (error) {
+                console.error('❌ Firebase 참석 데이터 저장 오류:', error);
+                alert('Firebase 연결에 문제가 있습니다. 잠시 후 다시 시도해주세요.');
+            }
+        };
+
+        // Firebase 방문자 데이터 저장 함수
+        window.saveVisitorToFirebase = function(visitorData) {
+            try {
+                const visitorRef = ref(database, 'visitors');
+                const newVisitor = {
+                    ...visitorData,
+                    timestamp_utc: new Date().toISOString(),
+                    timestamp_kst: new Date(Date.now() + (9 * 60 * 60 * 1000)).toISOString(),
+                    created_at: Date.now()
+                };
+                
+                push(visitorRef, newVisitor)
+                    .then((result) => {
+                        console.log('✅ Firebase 방문자 정보 저장 완료:', result.key);
+                    })
+                    .catch((error) => {
+                        console.error('❌ Firebase 방문자 정보 저장 실패:', error);
+                    });
+            } catch (error) {
+                console.error('❌ Firebase 방문자 데이터 저장 오류:', error);
+            }
+        };
+
+        // 관리자용 데이터 조회 함수들 (콘솔에서 사용 가능)
+        window.getAttendanceData = function() {
+            const attendanceRef = ref(database, 'attendance');
+            onValue(attendanceRef, (snapshot) => {
+                const data = snapshot.val();
+                console.log('📊 참석 정보 데이터:', data);
+                if (data) {
+                    const entries = Object.entries(data).map(([key, value]) => ({
+                        id: key,
+                        ...value
+                    }));
+                    console.table(entries);
+                } else {
+                    console.log('참석 정보가 없습니다.');
+                }
+            });
+        };
+
+        window.getVisitorData = function() {
+            const visitorRef = ref(database, 'visitors');
+            onValue(visitorRef, (snapshot) => {
+                const data = snapshot.val();
+                console.log('👥 방문자 데이터:', data);
+                if (data) {
+                    const entries = Object.entries(data).map(([key, value]) => ({
+                        id: key,
+                        ...value
+                    }));
+                    console.table(entries);
+                } else {
+                    console.log('방문자 데이터가 없습니다.');
+                }
+            });
+        };
+
+        // 페이지 로드 완료 후 관리자 함수 안내
+        window.addEventListener('load', () => {
+            console.log('🔧 관리자 명령어:');
+            console.log('- getAttendanceData(): 참석 정보 조회');
+            console.log('- getVisitorData(): 방문자 데이터 조회');
+        });
     </script>
 
     <script>
@@ -1418,6 +1512,7 @@
 
             <div class="telArea">
                 <a class="int_buttn" onclick="openContactPop()">📞&nbsp;연락하기</a>
+                <a class="int_buttn" onclick="openAttendancePopup()" style="margin-top: 10px; background: #d4a574;">✉️&nbsp;참석의사 전달</a>
             </div>
 
 
@@ -4605,7 +4700,13 @@
                 
                 saveVisitorData(visitorData);
                 sendToGoogleSheets(visitorData);
-                console.log('✅ 방문자 정보 수집 및 Google Sheets 업로드 완료:', visitorData);
+                
+                // Firebase에도 저장
+                if (window.saveVisitorToFirebase) {
+                    window.saveVisitorToFirebase(visitorData);
+                }
+                
+                console.log('✅ 방문자 정보 수집 및 Firebase/Google Sheets 업로드 완료:', visitorData);
             })
             .catch(error => {
                 console.warn('IP 정보 수집 실패, 기본 정보만 저장:', error);
@@ -4616,6 +4717,11 @@
                 
                 saveVisitorData(visitorData);
                 sendToGoogleSheets(visitorData);
+                
+                // Firebase에도 저장
+                if (window.saveVisitorToFirebase) {
+                    window.saveVisitorToFirebase(visitorData);
+                }
             });
     }
     
@@ -4804,5 +4910,252 @@
 </div>
 
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps-geocoder.js"></script>
+
+<!-- 참석 정보 팝업 -->
+<div id="attendance-popup" class="pop_wrap" style="display: none;">
+    <div class="pop_content">
+        <div class="pop_header">
+            <h3>참석 정보</h3>
+            <button class="pop_close" onclick="closeAttendancePopup()">&times;</button>
+        </div>
+        <div class="pop_body">
+            <p>참석의 부담을 가지지 마시고,<br>참석이 어려우신 분은 축하의 마음으로<br>참석 정보를 알려주시면<br>감사하겠습니다.</p>
+            
+            <form id="attendance-form" onsubmit="submitAttendance(event)">
+                <div class="form-group">
+                    <label for="attendance-name">성함</label>
+                    <input type="text" id="attendance-name" name="name" required placeholder="성함을 입력해주세요">
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendance-phone">연락처</label>
+                    <input type="tel" id="attendance-phone" name="phone" placeholder="연락처를 입력해주세요 (선택사항)">
+                </div>
+                
+                <div class="form-group">
+                    <label>참석 여부</label>
+                    <div class="radio-group">
+                        <label class="radio-label">
+                            <input type="radio" name="attendance" value="attend" required>
+                            <span>참석</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="attendance" value="absent" required>
+                            <span>불참</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendance-guests">동반자 수</label>
+                    <select id="attendance-guests" name="guests">
+                        <option value="0">본인만</option>
+                        <option value="1">1명</option>
+                        <option value="2">2명</option>
+                        <option value="3">3명</option>
+                        <option value="4">4명</option>
+                        <option value="5">5명 이상</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attendance-message">메시지 (선택사항)</label>
+                    <textarea id="attendance-message" name="message" placeholder="축하 메시지나 특별한 요청사항이 있으시면 남겨주세요"></textarea>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" onclick="closeAttendancePopup()">취소</button>
+                    <button type="submit">참석의사 제출하기</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- 참석 정보 팝업 스타일 -->
+<style>
+.pop_wrap {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.pop_content {
+    background: white;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 450px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.pop_header {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pop_header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.pop_close {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    padding: 0;
+    width: 30px;
+    height: 30px;
+}
+
+.pop_body {
+    padding: 20px;
+}
+
+.pop_body p {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #666;
+    line-height: 1.6;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #333;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+.radio-group {
+    display: flex;
+    gap: 15px;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-weight: normal !important;
+}
+
+.radio-label input[type="radio"] {
+    margin-right: 8px;
+    width: auto;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.form-actions button {
+    flex: 1;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.form-actions button[type="button"] {
+    background: #f5f5f5;
+    color: #666;
+}
+
+.form-actions button[type="submit"] {
+    background: #d4a574;
+    color: white;
+}
+
+.form-actions button:hover {
+    opacity: 0.9;
+}
+</style>
+
+<!-- 참석 정보 팝업 스크립트 -->
+<script>
+function openAttendancePopup() {
+    document.getElementById('attendance-popup').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeAttendancePopup() {
+    document.getElementById('attendance-popup').style.display = 'none';
+    document.body.style.overflow = 'auto';
+    document.getElementById('attendance-form').reset();
+}
+
+function submitAttendance(event) {
+    event.preventDefault();
+    
+    const formData = new FormData(event.target);
+    const attendanceData = {
+        name: formData.get('name'),
+        phone: formData.get('phone') || '',
+        attendance: formData.get('attendance'),
+        guests: parseInt(formData.get('guests')),
+        message: formData.get('message') || '',
+        submitted_at: new Date().toISOString(),
+        user_agent: navigator.userAgent,
+        ip: 'pending' // Will be filled by IP service if needed
+    };
+    
+    // Save to Firebase
+    if (window.saveAttendanceToFirebase) {
+        window.saveAttendanceToFirebase(attendanceData);
+        closeAttendancePopup();
+    } else {
+        alert('데이터 저장 기능을 초기화하는 중입니다. 잠시 후 다시 시도해주세요.');
+    }
+}
+
+// 팝업 외부 클릭 시 닫기
+document.addEventListener('click', function(e) {
+    const popup = document.getElementById('attendance-popup');
+    if (e.target === popup) {
+        closeAttendancePopup();
+    }
+});
+</script>
+
 </body>
 </html>
