@@ -356,27 +356,38 @@ ul.books li .b.video .bottom > span {
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     background: rgba(0, 0, 0, 0.9);
     z-index: 9999;
-    touch-action: manipulation;
+    overflow: hidden;
+    touch-action: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 .gallery-modal-content {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+    touch-action: none;
 }
 
 .gallery-modal img {
-    max-width: 90%;
-    max-height: 90%;
+    max-width: 85%;
+    max-height: 85%;
+    width: auto;
+    height: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
 .gallery-modal-close {

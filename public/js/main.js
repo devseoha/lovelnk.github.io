@@ -325,9 +325,10 @@ $(document).ready(function () {
     });
     
     // Initialize components
-    initGalleryModal();
     optimizeImages();
     initMainVideo();
+    
+    // Gallery는 별도 JS 파일에서 초기화됨
 });
 
 // Global variable for splash activation

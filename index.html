@@ -159,95 +159,18 @@
          transform: translateY(0);
      }
 
-     /* 스크롤 애니메이션 개선 */
-     .anibox, .anibox_books, .anibox_bn {
-         transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
-         will-change: transform, opacity;
+     .anibox {
+         transition: all 0.6s ease-out;
      }
 
-     .anibox.hd, .anibox_books.hd, .anibox_bn.hd {
+     .anibox.hd {
          opacity: 0;
-         transform: translateY(60px) scale(0.9);
-         filter: blur(5px);
+         transform: translateY(30px);
      }
 
-     .anibox.visible, .anibox_books.visible, .anibox_bn.visible {
+     .anibox.visible {
          opacity: 1;
-         transform: translateY(0) scale(1);
-         filter: blur(0px);
-     }
-
-     /* 갤러리 아이템 애니메이션 */
-     .gallGridWrapper .item.hd {
-         opacity: 0;
-         transform: translateY(40px) scale(0.8) rotateX(30deg);
-         filter: blur(3px);
-     }
-
-     .gallGridWrapper .item.visible {
-         opacity: 1;
-         transform: translateY(0) scale(1) rotateX(0deg);
-         filter: blur(0px);
-     }
-
-     /* 각 섹션별 순차적 애니메이션 */
-     .anibox:nth-child(1) { transition-delay: 0ms; }
-     .anibox:nth-child(2) { transition-delay: 100ms; }
-     .anibox:nth-child(3) { transition-delay: 200ms; }
-     .anibox:nth-child(4) { transition-delay: 300ms; }
-     .anibox:nth-child(5) { transition-delay: 400ms; }
-
-     /* 갤러리 아이템 순차 애니메이션 */
-     .gallGridWrapper .item {
-         transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-         will-change: transform, opacity;
-     }
-
-     .gallGridWrapper .item:nth-child(1) { transition-delay: 0ms; }
-     .gallGridWrapper .item:nth-child(2) { transition-delay: 150ms; }
-     .gallGridWrapper .item:nth-child(3) { transition-delay: 300ms; }
-     .gallGridWrapper .item:nth-child(4) { transition-delay: 450ms; }
-     .gallGridWrapper .item:nth-child(5) { transition-delay: 600ms; }
-     .gallGridWrapper .item:nth-child(6) { transition-delay: 750ms; }
-
-     /* fadeInUp 애니메이션 개선 */
-     .animated.fadeInUp {
-         animation-duration: 0.8s;
-         animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-         animation-fill-mode: both;
-     }
-
-     @keyframes fadeInUp {
-         0% {
-             opacity: 0;
-             transform: translate3d(0, 80px, 0) scale(0.8);
-             filter: blur(8px);
-         }
-         50% {
-             opacity: 0.8;
-             transform: translate3d(0, 20px, 0) scale(0.95);
-             filter: blur(2px);
-         }
-         100% {
-             opacity: 1;
-             transform: translate3d(0, 0, 0) scale(1);
-             filter: blur(0px);
-         }
-     }
-
-     /* 방명록 아이템 애니메이션 */
-     .anibox_books {
-         transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-     }
-
-     .anibox_books.hd {
-         opacity: 0;
-         transform: translateY(30px) scale(0.98);
-     }
-
-     .anibox_books.visible {
-         opacity: 1;
-         transform: translateY(0) scale(1);
+         transform: translateY(0);
      }
 
      /* 이미지 컨테이너 여백 및 테두리 조정 */
@@ -265,33 +188,6 @@
      /* 페이지 전체 부드러운 전환 */
      .pageCover {
          transition: all 0.4s ease;
-     }
-
-     /* 부드러운 스크롤 */
-     html {
-         scroll-behavior: smooth;
-     }
-
-     /* 성능 최적화 */
-     * {
-         -webkit-backface-visibility: hidden;
-         backface-visibility: hidden;
-         -webkit-perspective: 1000;
-         perspective: 1000;
-     }
-
-     /* 스크롤 시 섹션별 스테이거드 애니메이션 */
-     .layer .anibox:nth-child(odd) {
-         transform: translateY(40px) translateX(-20px) scale(0.95);
-     }
-
-     .layer .anibox:nth-child(even) {
-         transform: translateY(40px) translateX(20px) scale(0.95);
-     }
-
-     .layer .anibox.visible:nth-child(odd),
-     .layer .anibox.visible:nth-child(even) {
-         transform: translateY(0) translateX(0) scale(1);
      }
 
      /* 로딩 스피너 부드러운 전환 */
@@ -1707,6 +1603,7 @@
                     <img src="./public/img/card/square.png" class="box square">
                 </div>
                 <div class="item"
+                     data-url="./public/images/5.jpg"
                      style="background-image: url(./public/images/5.jpg);">
                     <img src="./public/img/card/rectangle.png" class="box rectangle">
                     <img src="./public/img/card/square.png" class="box square">
@@ -3679,14 +3576,7 @@
         }
     }
 
-    $(".gallGridWrapper .item").click(function () {
-        // 디테일 모달에는 data-url의 큰 이미지 사용
-        const detailImgUrl = $(this).attr('data-url');
-        if (detailImgUrl) {
-            console.log('디테일 모달 열기:', detailImgUrl);
-            openGalleryModal(detailImgUrl);
-        }
-    });
+    // 갤러리 클릭 이벤트는 gallery.js의 initGalleryModal에서 처리됨
 
     function openGalleryModal(imgUrl) {
         const modal = document.getElementById('gallery-modal');
@@ -3694,27 +3584,27 @@
         if (modal && modalImg) {
             modalImg.src = imgUrl;
             modal.style.display = 'block';
-
+            
             // 이미지 목록에서 현재 이미지 인덱스 찾기
             const allImages = Array.from(document.querySelectorAll('.gallGridWrapper .item')).map(item => {
                 return item.getAttribute('data-url') || item.style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/)[1];
             }).filter(url => url);
-
+            
             const currentIndex = allImages.indexOf(imgUrl);
             if (currentIndex !== -1) {
                 window.currentGalleryIndex = currentIndex;
                 window.galleryImages = allImages;
-
+                
                 // initGalleryModal의 currentImageIndex와 동기화
                 if (window.galleryModalInstance && window.galleryModalInstance.setCurrentIndex) {
                     window.galleryModalInstance.setCurrentIndex(currentIndex);
                 }
-
+                
                 updateGalleryCounter();
             }
         }
     }
-
+    
     function updateGalleryCounter() {
         const currentSpan = document.getElementById('gallery-current');
         const totalSpan = document.getElementById('gallery-total');
@@ -3723,7 +3613,7 @@
             totalSpan.textContent = window.galleryImages.length;
         }
     }
-
+    
     // 카피 기능
     function copy_to_clipboard2(elementId) {
         const textarea = document.getElementById(elementId);
@@ -3868,8 +3758,15 @@
     $(document).ready(function () {
 
 
-        // 부드러운 스크롤 애니메이션 구현
-        initScrollAnimations();
+        $('.anibox').addClass("hd").viewportChecker({
+            classToAdd: 'visible animated fadeInUp',
+            offset: 100
+        });
+
+        $('.anibox_bn').viewportChecker({
+            classToAdd: 'animate',
+            offset: 100
+        });
         
         // 갤러리 모달 기능 초기화
         initGalleryModal();
@@ -3891,10 +3788,10 @@
         const nextBtn = document.querySelector('.gallery-modal-next');
         const currentSpan = document.getElementById('gallery-current');
         const totalSpan = document.getElementById('gallery-total');
-
+        
         let currentImageIndex = 0;
         let images = [];
-
+        
         // 모든 갤러리 아이템 수집 및 lazy loading 구현
         const galleryItems = document.querySelectorAll('.gallGridWrapper .item');
         galleryItems.forEach((item, index) => {
@@ -3903,7 +3800,7 @@
                 images.push(imgUrl);
                 // 커서 포인터 스타일 추가
                 item.style.cursor = 'pointer';
-
+                
                 // lazy loading 구현
                 const observer = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
@@ -3917,35 +3814,35 @@
                         }
                     });
                 });
-
+                
                 // 처음에는 placeholder 이미지로 설정
                 if (!item.style.backgroundImage.includes(imgUrl)) {
                     observer.observe(item);
                 }
             }
         });
-
+        
         if (totalSpan) totalSpan.textContent = images.length;
-
+        
         function openModal(index) {
             currentImageIndex = index;
             updateModal();
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
         }
-
+        
         function closeModal() {
             modal.style.display = 'none';
             document.body.style.overflow = 'auto'; // 배경 스크롤 복원
         }
-
+        
         function updateModal() {
             if (images.length > 0) {
                 modalImg.src = images[currentImageIndex];
                 currentSpan.textContent = currentImageIndex + 1;
             }
         }
-
+        
         // 외부에서 currentImageIndex를 설정할 수 있도록 함수 제공
         function setCurrentIndex(index) {
             if (index >= 0 && index < images.length) {
@@ -3953,7 +3850,7 @@
                 updateModal();
             }
         }
-
+        
         function showPrevious() {
             currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
             // window.currentGalleryIndex와 동기화
@@ -3961,7 +3858,7 @@
             updateModal();
             updateGalleryCounter();
         }
-
+        
         function showNext() {
             currentImageIndex = (currentImageIndex + 1) % images.length;
             // window.currentGalleryIndex와 동기화
@@ -3969,24 +3866,24 @@
             updateModal();
             updateGalleryCounter();
         }
-
+        
         // 이벤트 리스너들
         closeBtn.addEventListener('click', closeModal);
         prevBtn.addEventListener('click', showPrevious);
         nextBtn.addEventListener('click', showNext);
-
+        
         // 모달 배경 클릭 시 닫기
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
             }
         });
-
+        
         // 전역에서 접근할 수 있도록 인스턴스 저장
         window.galleryModalInstance = {
             setCurrentIndex: setCurrentIndex
         };
-
+        
         // 키보드 이벤트
         document.addEventListener('keydown', (e) => {
             if (modal.style.display === 'block') {
@@ -4003,24 +3900,24 @@
                 }
             }
         });
-
+        
         // 터치 스와이프 지원
         let touchStartX = 0;
         let touchEndX = 0;
-
+        
         modal.addEventListener('touchstart', (e) => {
             touchStartX = e.changedTouches[0].screenX;
         });
-
+        
         modal.addEventListener('touchend', (e) => {
             touchEndX = e.changedTouches[0].screenX;
             handleSwipe();
         });
-
+        
         function handleSwipe() {
             const swipeThreshold = 50;
             const diff = touchStartX - touchEndX;
-
+            
             if (Math.abs(diff) > swipeThreshold) {
                 if (diff > 0) {
                     showNext(); // 오른쪽 스와이프 -> 다음 이미지
@@ -4061,46 +3958,7 @@
             }
         }
 
-        // 갤러리 이미지 지연 로딩 제거: 리스트 이미지는 초기 로드 그대로 유지
-    }
-
-    // 스크롤 애니메이션 초기화
-    function initScrollAnimations() {
-        // 모든 애니메이션 대상 요소들을 hd 클래스로 초기화
-        const animatedElements = document.querySelectorAll('.anibox, .anibox_books, .anibox_bn');
-        animatedElements.forEach(el => {
-            el.classList.add('hd');
-        });
-
-        // Intersection Observer 설정
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry, index) => {
-                if (entry.isIntersecting) {
-                    // 요소가 보이면 애니메이션 시작
-                    setTimeout(() => {
-                        entry.target.classList.add('visible', 'animated', 'fadeInUp');
-                        entry.target.classList.remove('hd');
-                    }, index * 100); // 순차적 등장 효과
-                }
-            });
-        }, observerOptions);
-
-        // 모든 애니메이션 요소 관찰 시작
-        animatedElements.forEach(el => {
-            observer.observe(el);
-        });
-
-        // 갤러리 아이템들도 별도 처리
-        const galleryItems = document.querySelectorAll('.gallGridWrapper .item');
-        galleryItems.forEach((item, index) => {
-            item.classList.add('hd');
-            observer.observe(item);
-        });
+         // 갤러리 이미지 지연 로딩 제거: 리스트 이미지는 초기 로드 그대로 유지
     }
 
     // 메인 동영상 초기화
@@ -5329,5 +5187,11 @@ document.addEventListener('click', function(e) {
 });
 </script>
 
+<!-- External JavaScript Files -->
+<script src="./public/js/main.js"></script>
+<script src="./public/js/firebase.js"></script>
+<script src="./public/js/gallery.js"></script>
+<script src="./public/js/guestbook.js"></script>
+
 </body>
-</html>
+</htmlc를 누르
