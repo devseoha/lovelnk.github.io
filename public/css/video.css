@@ -1,0 +1,68 @@
+/* Video and media styles */
+
+#wvideo {
+    width: 100%;
+    height: 282px;
+}
+
+.w_16_9 {
+    width: 90%;
+    max-width: 425px;
+    position: relative;
+    margin: 0 auto;
+}
+
+.w_16_9::before {
+    content: '';
+    display: block;
+    padding-top: 56.25%;
+}
+
+.w_16_9 #wvideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.h_9_16 {
+    width: 80%;
+    margin: 0 auto;
+    position: relative;
+}
+
+.h_9_16::before {
+    content: "";
+    display: block;
+    padding-top: 177.78%;
+}
+
+.h_9_16 #wvideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.r_1_1 {
+    width: 100%;
+    max-width: 425px;
+    padding-top: 100%;
+    position: relative;
+}
+
+.r_1_1 #wvideo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+}

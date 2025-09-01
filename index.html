@@ -17,274 +17,14 @@
 
     <link rel="stylesheet" type="text/css"
           href="https://fastly.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
-    <style>
-        html {
-            touch-action: pan-x pan-y;
-        }
-
-        @font-face {
-            font-family: 'Crimson Pro';
-            font-style: normal;
-            font-weight: 400;
-            src: url(https://fonts.gstatic.com/s/crimsonpro/v23/q5uUsoa5M_tv7IihmnkabC5XiXCAlXGks1WZzm1MMJs-ZNU.woff2) format('woff2');
-            unicode-range: U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;
-        }
-
-        @font-face {
-            font-family: 'Crimson Pro';
-            font-style: normal;
-            font-weight: 400;
-            src: url(https://fonts.gstatic.com/s/crimsonpro/v23/q5uUsoa5M_tv7IihmnkabC5XiXCAlXGks1WZzm1MMZs-ZNU.woff2) format('woff2');
-            unicode-range: U+0100-02AF, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
-        }
-
-        @font-face {
-            font-family: 'Crimson Pro';
-            font-style: normal;
-            font-weight: 400;
-            src: url(https://fonts.gstatic.com/s/crimsonpro/v23/q5uUsoa5M_tv7IihmnkabC5XiXCAlXGks1WZzm1MP5s-.woff2) format('woff2');
-            unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
-        }
-
-        .private-books .fw {
-            display: none !important;
-        }
-
-
-        .private-books-one,
-        .private-attend-one {
-            background: var(--box-bg-color);
-            border-color: #fadcda;
-            border-color: transparent;
-            line-height: 1.76;
-        }
-
-        .private-books .wrt,
-        .private-attend .wrt {
-            border-radius: 14px;
-            height: 48px;
-            line-height: 48px;
-            padding: 0px 30px;
-            box-shadow: none;
-            border: 1px solid #d1c8c8;
-            color: #978686;
-            background: none;
-
-
-            border-color: #e2d2d2;
-
-
-            border-color: #ddd;
-            color: #404040;
-
-            background: #fafafa;
-            border-color: transparent;
-
-            border-color: rgb(250, 250, 250);
-            min-width: 215px;
-
-            border: 1px solid #eee;
-        }
-
-        .private-books .wrt.gry,
-        .private-attend .wrt.gry {
-            background: #fafafa;
-        }
-
-        .private-books .wrt.str,
-        .private-attend .wrt.str {
-            color: var(--box-font-color);;
-            border-color: var(--box-border-color);
-            background: #fff;
-        }
-        
-        /* 은행 이름 폰트 크기 조정 */
-        .bnk {
-            font-size: 13px !important;
-        }
-        
-        /* 계좌번호 정렬 개선 */
-        .accounts {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            width: 100% !important;
-        }
-        
-        .accounts .bnk {
-            flex: 0 0 auto !important;
-            margin-right: 10px !important;
-        }
-        
-        .accounts .nmb {
-            flex: 1 !important;
-            text-align: right !important;
-        }
-        
-        /* 아코디언 애니메이션 */
-        .pack .chevron-icon {
-            transition: transform 0.3s ease !important;
-            vertical-align: middle !important;
-        }
-        
-        .pack.open .chevron-icon {
-            transform: rotate(180deg) !important;
-        }
-        
-        .accordion-list {
-            transition: all 0.3s ease !important;
-            overflow: hidden !important;
-        }
-        
-        /* 음소거 버튼 스타일 */
-        #mute-toggle:hover {
-            background: rgba(0,0,0,0.7) !important;
-        }
-
-        .gallGridWrapper {
-            overflow: hidden;
-            transition: max-height 0.45s ease;
-            will-change: max-height;
-        }
-
-
-        .private-attend .wrt .i {
-            display: initial;
-            opacity: 0.7;
-        }
-
-        .accst02 .pack_wrap {
-            box-shadow: none;
-            box-shadow: 1px 1px 2px rgb(0 0 0/5%);
-
-            width: 310px;
-            background: #fff;
-            margin-bottom: 10px;
-
-            border: 1px solid #e2e4ea;
-            border-radius: 6px;
-
-            border: 0;
-
-            /*border: 1px solid #e2e4ea;*/
-        }
-
-        .accst02 .pack {
-            height: 50px;
-            line-height: 50px;
-            background-color: rgba(247, 158, 158, 0.09);
-            background: #f2eeee;
-
-            background: #edeef1;
-            border-radius: 4px;
-            border: 0px;
-            border-bottom: 1px dashed #e2e4ea;
-            border: 0;
-
-            color: #262f3c;
-            background: #f9f9f9;
-            background: rgb(243, 243, 243)
-        }
-
-        .accst02 .pack_wrap.active .pack {
-            /* border-radius: 6px 6px 0 0; */
-            border-bottom-right-radius: 0;
-            border-bottom-left-radius: 0;
-        }
-
-        .accst02 .pack_wrap .c > li .b_1 {
-            background: rgb(243, 243, 243);
-        }
-
-        .accst02 .pack_wrap .c > li:last-child {
-            border-bottom: 0px;
-        }
-
-        .accst02 .pack > i {
-            font-size: 1.2rem;
-            color: #999;
-        }
-
-        ul.wayto {
-            padding: 0px 33px;
-            /* background: #f5f5f5;*/
-        }
-
-        ul.wayto li.li {
-            font-size: 1.4rem;
-            color: #555;
-            border-bottom: 1px dotted #e0e0e0;
-            margin: 0;
-            padding-top: 24px;
-            line-height: 1.65;
-            padding-bottom: 21px;
-        }
-
-        ul.wayto li.li:last-child {
-            border: none;
-        }
-
-        ul.wayto li.li .n {
-            font-size: 1.5rem;
-            color: #000;
-            letter-spacing: -.03em;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-
-
-        .wayto li.li.navi {
-            display: block;
-        }
-
-        .map_wrapper #map {
-            height: 300px;
-        }
-
-        #go_map {
-            height: 300px;
-        }
-
-        .map_wrapper {
-            padding: 25px 0;
-        }
-
-        .drag-prevent {
-            -ms-user-select: none;
-            -moz-user-select: -moz-none;
-            -webkit-user-select: none;
-            -khtml-user-select: none;
-            user-select: none;
-            touch-action: pan-y;
-        }
-
-        .bttmImgBlur,
-        .mainImgArea.mainImgBlur {
-            -webkit-mask-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, .013) 1.1%, rgba(0, 0, 0, .049) 2.3%, rgba(0, 0, 0, .104) 3.58%, rgba(0, 0, 0, .175) 4.94%, rgba(0, 0, 0, .259) 6.34%, rgba(0, 0, 0, .352) 7.78%, rgba(0, 0, 0, .45) 9.26%, rgba(0, 0, 0, .55) 10.74%, rgba(0, 0, 0, .648) 12.22%, rgba(0, 0, 0, .741) 13.66%, rgba(0, 0, 0, .825) 15.06%, rgba(0, 0, 0, .896) 16.42%, rgba(0, 0, 0, .951) 17.7%, rgba(0, 0, 0, .987) 18.9%, #000 20%, #000 80%, rgba(0, 0, 0, .987) 81.1%, rgba(0, 0, 0, .951) 82.3%, rgba(0, 0, 0, .896) 83.58%, rgba(0, 0, 0, .825) 84.94%, rgba(0, 0, 0, .741) 86.34%, rgba(0, 0, 0, .648) 87.78%, rgba(0, 0, 0, .55) 89.26%, rgba(0, 0, 0, .45) 90.74%, rgba(0, 0, 0, .352) 92.22%, rgba(0, 0, 0, .259) 93.66%, rgba(0, 0, 0, .175) 95.06%, rgba(0, 0, 0, .104) 96.42%, rgba(0, 0, 0, .049) 97.7%, rgba(0, 0, 0, .013) 98.9%, transparent);
-            mask-image: linear-gradient(180deg, transparent, rgba(0, 0, 0, .013) 1.1%, rgba(0, 0, 0, .049) 2.3%, rgba(0, 0, 0, .104) 3.58%, rgba(0, 0, 0, .175) 4.94%, rgba(0, 0, 0, .259) 6.34%, rgba(0, 0, 0, .352) 7.78%, rgba(0, 0, 0, .45) 9.26%, rgba(0, 0, 0, .55) 10.74%, rgba(0, 0, 0, .648) 12.22%, rgba(0, 0, 0, .741) 13.66%, rgba(0, 0, 0, .825) 15.06%, rgba(0, 0, 0, .896) 16.42%, rgba(0, 0, 0, .951) 17.7%, rgba(0, 0, 0, .987) 18.9%, #000 20%, #000 80%, rgba(0, 0, 0, .987) 81.1%, rgba(0, 0, 0, .951) 82.3%, rgba(0, 0, 0, .896) 83.58%, rgba(0, 0, 0, .825) 84.94%, rgba(0, 0, 0, .741) 86.34%, rgba(0, 0, 0, .648) 87.78%, rgba(0, 0, 0, .55) 89.26%, rgba(0, 0, 0, .45) 90.74%, rgba(0, 0, 0, .352) 92.22%, rgba(0, 0, 0, .259) 93.66%, rgba(0, 0, 0, .175) 95.06%, rgba(0, 0, 0, .104) 96.42%, rgba(0, 0, 0, .049) 97.7%, rgba(0, 0, 0, .013) 98.9%, transparent);
-        }
-
-        .bttmImgBlur .blr,
-        .mainImgArea.mainImgBlur .blr {
-            display: none !important;
-        }
-
-        .main_frm_ver_2 .mainImgArea.mainImgBlur {
-            -webkit-mask-image: linear-gradient(0deg,
-            transparent, rgba(0, 0, 0, .013) 1.1%, rgba(0, 0, 0, .049) 2.3%, rgba(0, 0, 0, .104) 3.58%, rgba(0, 0, 0, .175) 4.94%, rgba(0, 0, 0, .259) 6.34%, rgba(0, 0, 0, .352) 7.78%, rgba(0, 0, 0, .45) 9.26%, rgba(0, 0, 0, .55) 10.74%, rgba(0, 0, 0, .648) 12.22%, rgba(0, 0, 0, .741) 13.66%, rgba(0, 0, 0, .825) 15.06%, rgba(0, 0, 0, .896) 16.42%, rgba(0, 0, 0, .951) 17.7%, rgba(0, 0, 0, .987) 18.9%, #000 20%);
-            mask-image: linear-gradient(0deg,
-            transparent, rgba(0, 0, 0, .013) 1.1%, rgba(0, 0, 0, .049) 2.3%, rgba(0, 0, 0, .104) 3.58%, rgba(0, 0, 0, .175) 4.94%, rgba(0, 0, 0, .259) 6.34%, rgba(0, 0, 0, .352) 7.78%, rgba(0, 0, 0, .45) 9.26%, rgba(0, 0, 0, .55) 10.74%, rgba(0, 0, 0, .648) 12.22%, rgba(0, 0, 0, .741) 13.66%, rgba(0, 0, 0, .825) 15.06%, rgba(0, 0, 0, .896) 16.42%, rgba(0, 0, 0, .951) 17.7%, rgba(0, 0, 0, .987) 18.9%, #000 20%);
-
-        }
-
-        @font-face {
-            font-family: 'Didact Gothic';
-            src: url(chrome-extension://ignghjdjmgleolgiaifohmdlnbjklkij/assets/fonts/didactgothic.woff2) format('woff2');
-
-            font-weight: normal;
-            font-style: normal;
-        }
-    </style>
+    <!-- Extracted CSS Files -->
+    <link rel="stylesheet" href="./public/css/main.css">
+    <link rel="stylesheet" href="./public/css/loader-styles.css">
+    <link rel="stylesheet" href="./public/css/gallery.css">
+    <link rel="stylesheet" href="./public/css/popup.css">
+    <link rel="stylesheet" href="./public/css/video.css">
+    <link rel="stylesheet" href="./public/css/guestbook.css">
+    <link rel="stylesheet" href="./public/css/utility.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&amp;display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400&amp;display=swap" rel="stylesheet">
@@ -303,143 +43,14 @@
     <script type="text/javascript" src="./public/js/ref/global.js"></script>
     
     <!-- Firebase SDK -->
-    <script type="module">
-        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js';
-        import { getDatabase, ref, push, onValue, remove, update } from 'https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js';
-        
-        // Firebase 설정
-        const firebaseConfig = {
-            apiKey: "AIzaSyBhnySmBEAC6aHvs8mYQgUWuVB1rYaM3_k",
-            authDomain: "summers-loveink.firebaseapp.com",
-            databaseURL: "https://summers-loveink-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "summers-loveink",
-            storageBucket: "summers-loveink.firebasestorage.app",
-            messagingSenderId: "432612614223",
-            appId: "1:432612614223:web:bfb0a5b10d4ba4c593ca3a"
-        };
+    <script type="module" src="./public/js/firebase.js"></script>
 
-        // Firebase 초기화
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        
-        // 전역으로 Firebase 함수들 노출
-        window.firebaseDB = {
-            database,
-            ref,
-            push,
-            onValue,
-            remove,
-            update
-        };
-
-        // Firebase 참석 데이터 저장 함수
-        window.saveAttendanceToFirebase = function(attendanceData) {
-            console.log('🔄 Firebase 참석 정보 저장 시작:', attendanceData);
-            try {
-                const attendanceRef = ref(database, 'attendance');
-                const newAttendance = {
-                    ...attendanceData,
-                    timestamp_utc: new Date().toISOString(),
-                    timestamp_kst: new Date(Date.now() + (9 * 60 * 60 * 1000)).toISOString(),
-                    created_at: Date.now()
-                };
-                
-                console.log('📝 저장할 데이터:', newAttendance);
-                
-                push(attendanceRef, newAttendance)
-                    .then((result) => {
-                        console.log('✅ Firebase 참석 정보 저장 완료:', result.key);
-                        alert('참석 의사가 전달되었습니다.\n감사합니다! 💝');
-                    })
-                    .catch((error) => {
-                        console.error('❌ Firebase 참석 정보 저장 실패:', error);
-                        alert('참석 정보 저장에 실패했습니다. 다시 시도해주세요.');
-                    });
-            } catch (error) {
-                console.error('❌ Firebase 참석 데이터 저장 오류:', error);
-                alert('Firebase 연결에 문제가 있습니다. 잠시 후 다시 시도해주세요.');
-            }
-        };
-
-        // Firebase 방문자 데이터 저장 함수
-        window.saveVisitorToFirebase = function(visitorData) {
-            try {
-                const visitorRef = ref(database, 'visitors');
-                const newVisitor = {
-                    ...visitorData,
-                    timestamp_utc: new Date().toISOString(),
-                    timestamp_kst: new Date(Date.now() + (9 * 60 * 60 * 1000)).toISOString(),
-                    created_at: Date.now()
-                };
-                
-                push(visitorRef, newVisitor)
-                    .then((result) => {
-                        console.log('✅ Firebase 방문자 정보 저장 완료:', result.key);
-                    })
-                    .catch((error) => {
-                        console.error('❌ Firebase 방문자 정보 저장 실패:', error);
-                    });
-            } catch (error) {
-                console.error('❌ Firebase 방문자 데이터 저장 오류:', error);
-            }
-        };
-
-        // 관리자용 데이터 조회 함수들 (콘솔에서 사용 가능)
-        window.getAttendanceData = function() {
-            const attendanceRef = ref(database, 'attendance');
-            onValue(attendanceRef, (snapshot) => {
-                const data = snapshot.val();
-                console.log('📊 참석 정보 데이터:', data);
-                if (data) {
-                    const entries = Object.entries(data).map(([key, value]) => ({
-                        id: key,
-                        ...value
-                    }));
-                    console.table(entries);
-                } else {
-                    console.log('참석 정보가 없습니다.');
-                }
-            });
-        };
-
-        window.getVisitorData = function() {
-            const visitorRef = ref(database, 'visitors');
-            onValue(visitorRef, (snapshot) => {
-                const data = snapshot.val();
-                console.log('👥 방문자 데이터:', data);
-                if (data) {
-                    const entries = Object.entries(data).map(([key, value]) => ({
-                        id: key,
-                        ...value
-                    }));
-                    console.table(entries);
-                } else {
-                    console.log('방문자 데이터가 없습니다.');
-                }
-            });
-        };
-
-        // 페이지 로드 완료 후 관리자 함수 안내
-        window.addEventListener('load', () => {
-            console.log('🔧 관리자 명령어:');
-            console.log('- getAttendanceData(): 참석 정보 조회');
-            console.log('- getVisitorData(): 방문자 데이터 조회');
-        });
-    </script>
-
-    <script>
-        const mp_hname = '강동웨딩 KDW';
-        const mp_x = 127.1339205;
-        const mp_y = 37.5350565;
-    </script>
-
-
-    <script type="text/javascript">
-        // 안드로이드 우측 버튼 비활성
-        $('.imgblk').bind("contextmenu", function (e) {
-            return false;
-        });
-    </script>
+    <!-- Extracted JavaScript Files -->
+    <script src="./public/js/main.js"></script>
+    <script src="./public/js/gallery.js"></script>
+    <script src="./public/js/map.js"></script>
+    <script src="./public/js/sharing.js"></script>
+    <script src="./public/js/guestbook.js"></script>
 
 </head>
 <body oncontextmenu="return false" ondragstart="return false" onselectstart="return false"
@@ -447,263 +58,6 @@
       style="">
 
 
-<style>
-    .lds-roller {
-        display: inline-block;
-        position: relative;
-        width: 80px;
-        height: 80px;
-    }
-
-    .lds-roller div {
-        animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        transform-origin: 40px 40px;
-    }
-
-    .lds-roller div:after {
-        content: " ";
-        display: block;
-        position: absolute;
-        width: 7px;
-        height: 7px;
-        border-radius: 50%;
-        background: #fff;
-        margin: -4px 0 0 -4px;
-    }
-
-    .lds-roller div:nth-child(1) {
-        animation-delay: -0.036s;
-    }
-
-    .lds-roller div:nth-child(1):after {
-        top: 63px;
-        left: 63px;
-    }
-
-    .lds-roller div:nth-child(2) {
-        animation-delay: -0.072s;
-    }
-
-    .lds-roller div:nth-child(2):after {
-        top: 68px;
-        left: 56px;
-    }
-
-    .lds-roller div:nth-child(3) {
-        animation-delay: -0.108s;
-    }
-
-    .lds-roller div:nth-child(3):after {
-        top: 71px;
-        left: 48px;
-    }
-
-    .lds-roller div:nth-child(4) {
-        animation-delay: -0.144s;
-    }
-
-    .lds-roller div:nth-child(4):after {
-        top: 72px;
-        left: 40px;
-    }
-
-    .lds-roller div:nth-child(5) {
-        animation-delay: -0.18s;
-    }
-
-    .lds-roller div:nth-child(5):after {
-        top: 71px;
-        left: 32px;
-    }
-
-    .lds-roller div:nth-child(6) {
-        animation-delay: -0.216s;
-    }
-
-    .lds-roller div:nth-child(6):after {
-        top: 68px;
-        left: 24px;
-    }
-
-    .lds-roller div:nth-child(7) {
-        animation-delay: -0.252s;
-    }
-
-    .lds-roller div:nth-child(7):after {
-        top: 63px;
-        left: 17px;
-    }
-
-    .lds-roller div:nth-child(8) {
-        animation-delay: -0.288s;
-    }
-
-    .lds-roller div:nth-child(8):after {
-        top: 56px;
-        left: 12px;
-    }
-
-    @keyframes lds-roller {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    .loadBox {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1450;
-        background: rgba(0, 0, 0, 0.2);
-        display: none;
-    }
-
-    .loadBox .in {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        margin: auto;
-        width: 80px;
-        height: 80px;
-    }
-
-
-    .img_loading {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 9;
-        display: none;
-    }
-
-    .ldsr2 {
-        display: inline-block;
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        margin: auto;
-    }
-
-    .ldsr2 div {
-        animation: ldsr2 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-        transform-origin: 20px 20px;
-    }
-
-    .ldsr2 div:after {
-        content: " ";
-        display: block;
-        position: absolute;
-        width: 3.5px;
-        height: 3.5px;
-        border-radius: 50%;
-        background: #fff;
-        margin: -2px 0 0 -2px;
-    }
-
-    .ldsr2 div:nth-child(1) {
-        animation-delay: -0.036s;
-    }
-
-    .ldsr2 div:nth-child(1):after {
-        top: 31.5px;
-        left: 31.5px;
-    }
-
-    .ldsr2 div:nth-child(2) {
-        animation-delay: -0.072s;
-    }
-
-    .ldsr2 div:nth-child(2):after {
-        top: 34px;
-        left: 28px;
-    }
-
-    .ldsr2 div:nth-child(3) {
-        animation-delay: -0.108s;
-    }
-
-    .ldsr2 div:nth-child(3):after {
-        top: 35.5px;
-        left: 24px;
-    }
-
-    .ldsr2 div:nth-child(4) {
-        animation-delay: -0.144s;
-    }
-
-    .ldsr2 div:nth-child(4):after {
-        top: 36px;
-        left: 20px;
-    }
-
-    .ldsr2 div:nth-child(5) {
-        animation-delay: -0.18s;
-    }
-
-    .ldsr2 div:nth-child(5):after {
-        top: 35.5px;
-        left: 16px;
-    }
-
-    .ldsr2 div:nth-child(6) {
-        animation-delay: -0.216s;
-    }
-
-    .ldsr2 div:nth-child(6):after {
-        top: 34px;
-        left: 12px;
-    }
-
-    .ldsr2 div:nth-child(7) {
-        animation-delay: -0.252s;
-    }
-
-    .ldsr2 div:nth-child(7):after {
-        top: 31.5px;
-        left: 8.5px;
-    }
-
-    .ldsr2 div:nth-child(8) {
-        animation-delay: -0.288s;
-    }
-
-    .ldsr2 div:nth-child(8):after {
-        top: 28px;
-        left: 6px;
-    }
-
-    @keyframes ldsr2 {
-        0% {
-            transform: rotate(0deg);
-        }
-        100% {
-            transform: rotate(360deg);
-        }
-    }
-
-    .picbox .img.road .img_loading {
-        display: block;
-    }
-
-    .picbox .img.road .in {
-        display: none;
-    }
-
-</style>
 <div class="loadBox" id="loadBox2020">
     <div class="in">
         <div class="lds-roller">
@@ -718,15 +72,6 @@
         </div>
     </div>
 </div>
-<script>
-    function loading(go) {
-        if (go) {
-            $("#loadBox2020").css("display", "block");
-        } else {
-            $("#loadBox2020").css("display", "none");
-        }
-    }
-</script>
 <!-- 계좌번호 복사 팝업 -->
 <div class="pop_acct ft-gowun-bold" id="acctBox" style="display: none;">
     <div class="vcenterbox">
@@ -743,169 +88,6 @@
 </div>
 
 
-<style>
-    .popImg {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 500;
-        visibility: hidden;
-        background: rgba(51, 39, 42, .6);
-        touch-action: pinch-zoom;
-        opacity: 0;
-    }
-
-    .popImg .in {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 100%;
-        height: 100%;
-        max-width: 1280px;
-        transform: translate(-50%, -50%);
-    }
-
-    .popImg .in .container {
-        position: relative;
-        height: 100%;
-        text-align: center;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        touch-action: none;
-        user-select: none;
-        -webkit-user-drag: none;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    .popImg img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: cover;
-        object-position: 50% 50%;
-        cursor: move;
-        touch-action: none;
-        vertical-align: top;
-        transform: translateX(0px) translateY(0px) translateZ(0px) scale(1, 1);
-    }
-
-    .popImg .x_button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #fff;
-        font-size: 20px;
-        z-index: 1;
-    }
-
-    .popImg .down_button {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        color: #fff;
-        font-size: 20px;
-        z-index: 1;
-    }
-
-    .pageCover.blur6 {
-        -webkit-filter: blur(6px);
-        -moz-filter: blur(6px);
-        -o-filter: blur(6px);
-        -ms-filter: blur(6px);
-        filter: blur(6px);
-    }
-
-    .popImg.visible {
-        opacity: 1;
-        visibility: visible;
-    }
-
-    .popNoticeImg {
-        position: fixed;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 500;
-        background: rgba(51, 39, 42, .6);
-        touch-action: pinch-zoom;
-        visibility: hidden;
-        opacity: 0;
-    }
-
-    .popNoticeImg .in {
-        position: absolute;
-        left: 50%;
-        top: 50%;
-        width: 100%;
-        height: 100%;
-        max-width: 1280px;
-        transform: translate(-50%, -50%);
-    }
-
-    .popNoticeImg .in .container {
-        position: relative;
-        height: 100%;
-        text-align: center;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-
-        touch-action: none;
-        user-select: none;
-        -webkit-user-drag: none;
-        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    }
-
-    .popNoticeImg img {
-        max-width: 100%;
-        max-height: 100%;
-        object-fit: cover;
-        object-position: 50% 50%;
-        cursor: move;
-        touch-action: none;
-        vertical-align: top;
-        transform: translateX(0px) translateY(0px) translateZ(0px) scale(1, 1);
-    }
-
-    .popNoticeImg .x_button {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        color: #fff;
-        font-size: 20px;
-        z-index: 1;
-    }
-
-    .popNoticeImg .down_button {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        color: #fff;
-        font-size: 20px;
-        z-index: 1;
-    }
-
-    .pageCover.blur6 {
-        -webkit-filter: blur(6px);
-        -moz-filter: blur(6px);
-        -o-filter: blur(6px);
-        -ms-filter: blur(6px);
-        filter: blur(6px);
-    }
-
-    .popNoticeImg.visible {
-        opacity: 1;
-        visibility: visible;
-    }
-</style>
 
 <div class="popImg">
     <!--<a class="down_button">
@@ -1284,46 +466,9 @@
                             </g>
                         </svg>
                     </div>
-                    <div class="main-img-parent" style="position: relative; padding-top: 56.25%; background: #000;">
-                        <i class="rpd rpd01"></i><i class="rpd rpd02"></i><i class="rpd rpd03"></i><i
-                                class="rpd rpd04"></i>
-                        <!-- 동영상 우선 시도 -->
-                        <video id="main-video" autoplay muted loop playsinline preload="auto" poster="./public/images/55.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; opacity: 0; transition: opacity 0.6s ease;">
-                            <source src="public/img/index_3.mp4" type="video/mp4">
-                            <source src="public/img/index_3.mp4" type="video/quicktime">
-                            <!-- 동영상을 지원하지 않는 경우 대체 이미지 -->
-                            Your browser does not support the video tag.
-                        </video>
-
-
-                        <!-- 비디오 컨트롤 버튼들 -->
-                        <div id="video-controls" style="position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 10px; opacity: 0; transition: opacity 0.3s ease;">
-                            <!-- 정지/재생 토글 버튼 -->
-                            <button id="play-pause-toggle" onclick="togglePlayPause()" style="background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
-                                <svg id="play-pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
-                                    <!-- 정지 아이콘 (기본 - 비디오가 자동재생되므로) -->
-                                    <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
-                                </svg>
-                            </button>
-                            
-                            <!-- 음소거 토글 버튼 -->
-                            <button id="mute-toggle" onclick="toggleMute()" style="background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
-                                <svg id="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
-                                    <!-- 음소거 상태 아이콘 (기본) -->
-                                    <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
-                                </svg>
-                            </button>
-                            
-                            <!-- 크게보기 토글 버튼 -->
-                            <button id="fullscreen-toggle" onclick="toggleFullscreen()" style="background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
-                                <svg id="fullscreen-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
-                                    <!-- 전체화면 아이콘 -->
-                                    <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
-                                </svg>
-                            </button>
-                        </div>
-                        <img id="main-image" src="./public/images/55.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1; transition: opacity 0.6s ease;">
-                        <div class="imgCover" style="z-index: 5;"></div>
+                    <div class="intro_middle_img anibox hd" style="padding-bottom: 15px;">
+                        <div class="imgCover"></div>
+                        <img src="./public/images/es.jpeg">
                     </div>
                     <div class="wave bottom">
                         <svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -1427,19 +572,48 @@
 
         </div>
 
+        <div style="padding: 0 20px 30px 20px;">
+            <div class="main-img-parent" style="position: relative; padding-top: 56.25%; background: #fff; border-radius: 10px; overflow: hidden;">
+                <i class="rpd rpd01"></i><i class="rpd rpd02"></i><i class="rpd rpd03"></i><i
+                    class="rpd rpd04"></i>
+                <!-- 동영상 우선 시도 -->
+                <video id="main-video" autoplay muted loop playsinline preload="auto" poster="./public/images/55.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 2; opacity: 0; transition: opacity 0.6s ease;">
+                    <source src="public/img/index_3.mp4" type="video/mp4">
+                    <source src="public/img/index_3.mp4" type="video/quicktime">
+                    <!-- 동영상을 지원하지 않는 경우 대체 이미지 -->
+                    Your browser does not support the video tag.
+                </video>
 
-        <div style="padding-bottom: 30px;">
-            <!--
-                --------------------------------------------------------------------------------------
-            -->
-            <!-- 인사말 하단 배상 -->
 
-            <div class="intro_middle_img anibox hd" style="padding-bottom: 15px;">
-                <div class="imgCover"></div>
-                <img src="./public/images/es.jpeg">
+                <!-- 비디오 컨트롤 버튼들 -->
+                <div id="video-controls" style="position: absolute; top: 20px; right: 20px; z-index: 10; display: flex; gap: 10px; opacity: 0; transition: opacity 0.3s ease;">
+                    <!-- 정지/재생 토글 버튼 -->
+                    <button id="play-pause-toggle" onclick="togglePlayPause()" style="background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                        <svg id="play-pause-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <!-- 정지 아이콘 (기본 - 비디오가 자동재생되므로) -->
+                            <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
+                        </svg>
+                    </button>
+
+                    <!-- 음소거 토글 버튼 -->
+                    <button id="mute-toggle" onclick="toggleMute()" style="background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                        <svg id="mute-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <!-- 음소거 상태 아이콘 (기본) -->
+                            <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+                        </svg>
+                    </button>
+
+                    <!-- 크게보기 토글 버튼 -->
+                    <button id="fullscreen-toggle" onclick="toggleFullscreen()" style="background: rgba(0,0,0,0.5); border: none; border-radius: 50%; width: 40px; height: 40px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.3s ease;">
+                        <svg id="fullscreen-icon" width="20" height="20" viewBox="0 0 24 24" fill="white">
+                            <!-- 전체화면 아이콘 -->
+                            <path d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/>
+                        </svg>
+                    </button>
+                </div>
+                <img id="main-image" src="./public/images/55.png" style="width: 100%; height: 100%; object-fit: cover; object-position: center top; position: absolute; top: 0; left: 0; right: 0; bottom: 0; z-index: 1; transition: opacity 0.6s ease;">
+                <div class="imgCover" style="z-index: 5;"></div>
             </div>
-
-
             <div class="title2 anibox f17 introBottomDisplay intro_buttom_str hd"
                  style="display: flex; flex-direction: column;">
                 <!-- [START] 2022.10.09 정렬기능 추가 -->
@@ -1500,10 +674,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- [END] 2022.10.09 정렬기능 추가 -->
-
-
             </div>
             <div class="telAreaNone">
                 <div class="pic_0_ins line introBottomDisplay"
@@ -1514,16 +684,8 @@
                 <a class="int_buttn" onclick="openContactPop()">📞&nbsp;연락하기</a>
                 <a class="int_buttn" onclick="openAttendancePopup()" style="margin-top: 10px; background: #d4a574;">✉️&nbsp;참석의사 전달</a>
             </div>
-
-
-            <!-- 인사말 하단 배상 끝 -->
-            <!--
-                --------------------------------------------------------------------------------------
-            -->
         </div>
-
     </div>
-
 
     <div class="sectionMg gallLayerWrapper layer layer03 clearfix">
 

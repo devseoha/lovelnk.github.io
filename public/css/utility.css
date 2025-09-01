@@ -1,0 +1,5 @@
+/* Utility classes */
+
+.blurred {
+    filter: blur(3px) !important;
+}
