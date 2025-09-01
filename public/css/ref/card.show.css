@@ -4314,7 +4314,7 @@ ul.wayto .navi_button:nth-child(3) > span:before {
 
 .intro_middle_img {
     position: relative;
-    margin: 0 33px;
+    /*margin: 0 33px;*/
 }
 .intro_middle_img > img {
     max-width: 100%; border-radius: 10px;
