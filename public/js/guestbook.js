@@ -60,10 +60,7 @@ function openNavigationApp(appType) {
 
 // Initialize guestbook animations and data
 $(document).ready(function () {
-    $('.anibox_books').addClass("hd").viewportChecker({
-        classToAdd: 'visible animated faster fadeInUp',
-        offset: 100
-    });
+    // 애니메이션은 메인 페이지의 initScrollAnimations에서 처리
     
     // Firebase가 로드될 때까지 잠시 대기 후 초기화
     setTimeout(() => {

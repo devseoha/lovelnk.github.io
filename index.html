@@ -159,18 +159,95 @@
          transform: translateY(0);
      }
 
-     .anibox {
-         transition: all 0.6s ease-out;
+     /* 스크롤 애니메이션 개선 */
+     .anibox, .anibox_books, .anibox_bn {
+         transition: all 1.2s cubic-bezier(0.23, 1, 0.32, 1);
+         will-change: transform, opacity;
      }
 
-     .anibox.hd {
+     .anibox.hd, .anibox_books.hd, .anibox_bn.hd {
          opacity: 0;
-         transform: translateY(30px);
+         transform: translateY(60px) scale(0.9);
+         filter: blur(5px);
      }
 
-     .anibox.visible {
+     .anibox.visible, .anibox_books.visible, .anibox_bn.visible {
          opacity: 1;
-         transform: translateY(0);
+         transform: translateY(0) scale(1);
+         filter: blur(0px);
+     }
+
+     /* 갤러리 아이템 애니메이션 */
+     .gallGridWrapper .item.hd {
+         opacity: 0;
+         transform: translateY(40px) scale(0.8) rotateX(30deg);
+         filter: blur(3px);
+     }
+
+     .gallGridWrapper .item.visible {
+         opacity: 1;
+         transform: translateY(0) scale(1) rotateX(0deg);
+         filter: blur(0px);
+     }
+
+     /* 각 섹션별 순차적 애니메이션 */
+     .anibox:nth-child(1) { transition-delay: 0ms; }
+     .anibox:nth-child(2) { transition-delay: 100ms; }
+     .anibox:nth-child(3) { transition-delay: 200ms; }
+     .anibox:nth-child(4) { transition-delay: 300ms; }
+     .anibox:nth-child(5) { transition-delay: 400ms; }
+
+     /* 갤러리 아이템 순차 애니메이션 */
+     .gallGridWrapper .item {
+         transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+         will-change: transform, opacity;
+     }
+
+     .gallGridWrapper .item:nth-child(1) { transition-delay: 0ms; }
+     .gallGridWrapper .item:nth-child(2) { transition-delay: 150ms; }
+     .gallGridWrapper .item:nth-child(3) { transition-delay: 300ms; }
+     .gallGridWrapper .item:nth-child(4) { transition-delay: 450ms; }
+     .gallGridWrapper .item:nth-child(5) { transition-delay: 600ms; }
+     .gallGridWrapper .item:nth-child(6) { transition-delay: 750ms; }
+
+     /* fadeInUp 애니메이션 개선 */
+     .animated.fadeInUp {
+         animation-duration: 0.8s;
+         animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+         animation-fill-mode: both;
+     }
+
+     @keyframes fadeInUp {
+         0% {
+             opacity: 0;
+             transform: translate3d(0, 80px, 0) scale(0.8);
+             filter: blur(8px);
+         }
+         50% {
+             opacity: 0.8;
+             transform: translate3d(0, 20px, 0) scale(0.95);
+             filter: blur(2px);
+         }
+         100% {
+             opacity: 1;
+             transform: translate3d(0, 0, 0) scale(1);
+             filter: blur(0px);
+         }
+     }
+
+     /* 방명록 아이템 애니메이션 */
+     .anibox_books {
+         transition: all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+     }
+
+     .anibox_books.hd {
+         opacity: 0;
+         transform: translateY(30px) scale(0.98);
+     }
+
+     .anibox_books.visible {
+         opacity: 1;
+         transform: translateY(0) scale(1);
      }
 
      /* 이미지 컨테이너 여백 및 테두리 조정 */
@@ -188,6 +265,33 @@
      /* 페이지 전체 부드러운 전환 */
      .pageCover {
          transition: all 0.4s ease;
+     }
+
+     /* 부드러운 스크롤 */
+     html {
+         scroll-behavior: smooth;
+     }
+
+     /* 성능 최적화 */
+     * {
+         -webkit-backface-visibility: hidden;
+         backface-visibility: hidden;
+         -webkit-perspective: 1000;
+         perspective: 1000;
+     }
+
+     /* 스크롤 시 섹션별 스테이거드 애니메이션 */
+     .layer .anibox:nth-child(odd) {
+         transform: translateY(40px) translateX(-20px) scale(0.95);
+     }
+
+     .layer .anibox:nth-child(even) {
+         transform: translateY(40px) translateX(20px) scale(0.95);
+     }
+
+     .layer .anibox.visible:nth-child(odd),
+     .layer .anibox.visible:nth-child(even) {
+         transform: translateY(0) translateX(0) scale(1);
      }
 
      /* 로딩 스피너 부드러운 전환 */
@@ -3764,15 +3868,8 @@
     $(document).ready(function () {
 
 
-        $('.anibox').addClass("hd").viewportChecker({
-            classToAdd: 'visible animated fadeInUp',
-            offset: 100
-        });
-
-        $('.anibox_bn').viewportChecker({
-            classToAdd: 'animate',
-            offset: 100
-        });
+        // 부드러운 스크롤 애니메이션 구현
+        initScrollAnimations();
         
         // 갤러리 모달 기능 초기화
         initGalleryModal();
@@ -3965,6 +4062,45 @@
         }
 
         // 갤러리 이미지 지연 로딩 제거: 리스트 이미지는 초기 로드 그대로 유지
+    }
+
+    // 스크롤 애니메이션 초기화
+    function initScrollAnimations() {
+        // 모든 애니메이션 대상 요소들을 hd 클래스로 초기화
+        const animatedElements = document.querySelectorAll('.anibox, .anibox_books, .anibox_bn');
+        animatedElements.forEach(el => {
+            el.classList.add('hd');
+        });
+
+        // Intersection Observer 설정
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // 요소가 보이면 애니메이션 시작
+                    setTimeout(() => {
+                        entry.target.classList.add('visible', 'animated', 'fadeInUp');
+                        entry.target.classList.remove('hd');
+                    }, index * 100); // 순차적 등장 효과
+                }
+            });
+        }, observerOptions);
+
+        // 모든 애니메이션 요소 관찰 시작
+        animatedElements.forEach(el => {
+            observer.observe(el);
+        });
+
+        // 갤러리 아이템들도 별도 처리
+        const galleryItems = document.querySelectorAll('.gallGridWrapper .item');
+        galleryItems.forEach((item, index) => {
+            item.classList.add('hd');
+            observer.observe(item);
+        });
     }
 
     // 메인 동영상 초기화
