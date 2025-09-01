@@ -219,19 +219,37 @@ function initGalleryModal() {
     let scrollY = 0; // 스크롤 위치 저장
     
     function openModal(index) {
+        console.log('🚀 openModal 시작, 인덱스:', index);
+        
         currentImageIndex = index;
         updateModal();
         
-        // 스크롤 위치가 이미 저장되어 있지 않으면 여기서 저장
-        if (savedScrollPosition === 0) {
-            savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        // 모달 상태 추적
+        isModalOpen = true;
+        
+        // 스크롤 위치 확인 및 복구
+        const currentPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        
+        if (savedScrollPosition === 0 || savedScrollPosition === undefined) {
+            // 저장된 위치가 없으면 현재 위치 저장
+            savedScrollPosition = currentPos;
+            scrollBackupPosition = currentPos;
+            localStorage.setItem('galleryScrollPosition', currentPos.toString());
             console.log('🔖 openModal에서 스크롤 위치 저장:', savedScrollPosition, 'px');
         } else {
             console.log('🔖 이미 저장된 스크롤 위치 사용:', savedScrollPosition, 'px');
         }
         
+        // localStorage에서 백업 위치 확인
+        const storedPos = localStorage.getItem('galleryScrollPosition');
+        if (storedPos && parseInt(storedPos) > 0) {
+            scrollBackupPosition = parseInt(storedPos);
+            console.log('💾 localStorage에서 백업 위치 확인:', scrollBackupPosition, 'px');
+        }
+        
         // 추가 체크: 스크롤 위치가 유효한지 확인
         if (savedScrollPosition < 0) savedScrollPosition = 0;
+        if (scrollBackupPosition < 0) scrollBackupPosition = 0;
         
         // 모달 표시 및 스크롤 방지
         modal.style.display = 'block';
@@ -246,7 +264,31 @@ function initGalleryModal() {
     }
     
     function closeModal() {
-        console.log('🚪 모달 닫기 시작, 복원할 스크롤 위치:', savedScrollPosition);
+        console.log('🚪 모달 닫기 시작');
+        console.log('📊 스크롤 위치 상태 - 메인:', savedScrollPosition, '백업:', scrollBackupPosition);
+        
+        // 모달 상태 업데이트
+        isModalOpen = false;
+        
+        // 저장된 스크롤 위치 확인 및 복구 시도
+        let targetScrollPosition = savedScrollPosition;
+        
+        // 메인 위치가 0이면 백업 위치 사용
+        if (targetScrollPosition === 0 || targetScrollPosition === undefined) {
+            targetScrollPosition = scrollBackupPosition;
+            console.log('⚠️ 메인 위치가 0이므로 백업 위치 사용:', targetScrollPosition);
+        }
+        
+        // 백업도 0이면 localStorage에서 복구 시도
+        if (targetScrollPosition === 0) {
+            const storedPos = localStorage.getItem('galleryScrollPosition');
+            if (storedPos && parseInt(storedPos) > 0) {
+                targetScrollPosition = parseInt(storedPos);
+                console.log('💾 localStorage에서 위치 복구:', targetScrollPosition);
+            }
+        }
+        
+        console.log('🎯 최종 복원 목표 위치:', targetScrollPosition, 'px');
         
         modal.style.display = 'none';
         
@@ -259,75 +301,97 @@ function initGalleryModal() {
         document.body.style.width = '';
         
         // 강력한 스크롤 위치 복원 (다단계 방법)
-        console.log('🔄 스크롤 복원 시작, 목표 위치:', savedScrollPosition, 'px');
+        console.log('🔄 스크롤 복원 시작, 목표 위치:', targetScrollPosition, 'px');
         
         // 1단계: 즉시 복원
-        if (window.scrollTo) {
+        if (window.scrollTo && targetScrollPosition > 0) {
             try {
                 window.scrollTo({
-                    top: savedScrollPosition,
+                    top: targetScrollPosition,
                     left: 0,
                     behavior: 'instant'
                 });
                 console.log('✅ 1단계 스크롤 복원 완료');
             } catch (e) {
                 console.log('⚠️ 1단계 실패, 백업 방법 사용');
-                window.scrollTo(0, savedScrollPosition);
+                window.scrollTo(0, targetScrollPosition);
             }
+        } else {
+            console.log('⚠️ 스크롤 복원 불가 - 대상 위치:', targetScrollPosition);
         }
         
         // 2단계: 여러 방법으로 재시도 (10ms 후)
         setTimeout(() => {
-            const currentPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            if (Math.abs(currentPos - savedScrollPosition) > 5) { // 5px 이상 차이나면 재시도
-                console.log('📍 2단계 백업 스크롤 복원 실행, 현재:', currentPos, '목표:', savedScrollPosition);
-                
-                // 여러 방법으로 시도
-                window.scrollTo(0, savedScrollPosition);
-                document.documentElement.scrollTop = savedScrollPosition;
-                document.body.scrollTop = savedScrollPosition;
-                
-                // requestAnimationFrame을 사용한 최종 시도
-                requestAnimationFrame(() => {
-                    window.scrollTo(0, savedScrollPosition);
-                });
+            if (!isModalOpen && targetScrollPosition > 0) { // 모달이 닫혔을 때만 실행
+                const currentPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                if (Math.abs(currentPos - targetScrollPosition) > 5) { // 5px 이상 차이나면 재시도
+                    console.log('📍 2단계 백업 스크롤 복원 실행, 현재:', currentPos, '목표:', targetScrollPosition);
+                    
+                    // 여러 방법으로 시도
+                    window.scrollTo(0, targetScrollPosition);
+                    document.documentElement.scrollTop = targetScrollPosition;
+                    document.body.scrollTop = targetScrollPosition;
+                    
+                    // requestAnimationFrame을 사용한 최종 시도
+                    requestAnimationFrame(() => {
+                        window.scrollTo(0, targetScrollPosition);
+                    });
+                }
             }
         }, 10);
         
         // 3단계: 최종 확인 (100ms 후)
         setTimeout(() => {
-            const finalPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            console.log('🎯 최종 스크롤 위치:', finalPos, 'px (목표:', savedScrollPosition, 'px)');
-            if (Math.abs(finalPos - savedScrollPosition) > 5) {
-                console.log('⚠️ 최종 강제 스크롤 복원');
-                window.scrollTo(0, savedScrollPosition);
+            if (!isModalOpen && targetScrollPosition > 0) {
+                const finalPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                console.log('🎯 3단계 스크롤 위치:', finalPos, 'px (목표:', targetScrollPosition, 'px)');
+                if (Math.abs(finalPos - targetScrollPosition) > 5) {
+                    console.log('⚠️ 3단계 강제 스크롤 복원');
+                    window.scrollTo(0, targetScrollPosition);
+                }
             }
         }, 100);
         
-        // 4단계: X 버튼 클릭의 경우 추가 복원 (200ms 후)
+        // 4단계: 10번째 이미지 특별 처리 (200ms 후)
         setTimeout(() => {
-            const veryFinalPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            if (Math.abs(veryFinalPos - savedScrollPosition) > 10) {
-                console.log('🔧 X 버튼용 추가 스크롤 복원:', veryFinalPos, '->', savedScrollPosition);
-                
-                // 모든 가능한 방법으로 스크롤 복원
-                try {
-                    window.scrollTo({ top: savedScrollPosition, behavior: 'auto' });
-                } catch (e) {
-                    window.scrollTo(0, savedScrollPosition);
+            if (!isModalOpen && targetScrollPosition > 0) {
+                const veryFinalPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                if (Math.abs(veryFinalPos - targetScrollPosition) > 10) {
+                    console.log('🔧 4단계 특별 스크롤 복원:', veryFinalPos, '->', targetScrollPosition);
+                    
+                    // 모든 가능한 방법으로 스크롤 복원
+                    try {
+                        window.scrollTo({ top: targetScrollPosition, behavior: 'auto' });
+                    } catch (e) {
+                        window.scrollTo(0, targetScrollPosition);
+                    }
+                    
+                    // 강제 스크롤 설정
+                    document.documentElement.scrollTop = targetScrollPosition;
+                    document.body.scrollTop = targetScrollPosition;
+                    
+                    // 최종 강제 시도
+                    requestAnimationFrame(() => {
+                        window.scrollTo(0, targetScrollPosition);
+                        document.documentElement.scrollTop = targetScrollPosition;
+                    });
                 }
-                
-                // 강제 스크롤 설정
-                document.documentElement.scrollTop = savedScrollPosition;
-                document.body.scrollTop = savedScrollPosition;
-                
-                // 최종 강제 시도
-                requestAnimationFrame(() => {
-                    window.scrollTo(0, savedScrollPosition);
-                    document.documentElement.scrollTop = savedScrollPosition;
-                });
             }
         }, 200);
+        
+        // 5단계: 최종 안전장치 (500ms 후)
+        setTimeout(() => {
+            if (!isModalOpen) {
+                const ultimatePos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+                if (ultimatePos === 0 && targetScrollPosition > 0) {
+                    console.log('🚨 5단계 긴급 복원! 현재:', ultimatePos, '목표:', targetScrollPosition);
+                    window.scrollTo(0, targetScrollPosition);
+                    
+                    // localStorage 정리
+                    localStorage.removeItem('galleryScrollPosition');
+                }
+            }
+        }, 500);
         
         console.log('✅ 모달 닫힘, 스크롤 위치 복원 완료');
     }
@@ -413,13 +477,21 @@ function initGalleryModal() {
         
         // 메인 클릭 이벤트 (가장 중요!)
         const clickHandler = function(e) {
-            console.log('🖱️ 클릭 이벤트 발생! 아이템:', index + 1);
+            console.log('🖱️ 클릭 이벤트 발생! 아이템:', index + 1, '(10번째 이미지 확인)');
             console.log('📷 클릭된 이미지 URL:', imgUrl);
             
-            // 현재 스크롤 위치를 클릭 시점에 미리 저장 (더 안전함)
+            // 현재 스크롤 위치를 여러 방법으로 저장 (더 안전함)
             const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
             console.log('🔖 클릭 시점 스크롤 위치 저장:', currentScroll, 'px');
+            
+            // 메인과 백업 위치 모두 저장
             savedScrollPosition = currentScroll;
+            scrollBackupPosition = currentScroll;
+            
+            // 추가 안전장치: localStorage에도 저장
+            localStorage.setItem('galleryScrollPosition', currentScroll.toString());
+            
+            console.log('💾 스크롤 위치 다중 저장 완료 - 메인:', savedScrollPosition, '백업:', scrollBackupPosition);
             
             e.preventDefault();
             e.stopPropagation();
