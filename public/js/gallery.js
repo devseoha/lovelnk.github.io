@@ -172,14 +172,24 @@ function initGalleryModal() {
     let currentImageIndex = 0;
     let images = [];
     let savedScrollPosition = 0; // 스크롤 위치 저장용 변수 추가
+    let isModalOpen = false; // 모달 상태 추적
+    let scrollBackupPosition = 0; // 백업 스크롤 위치
     
     // 모든 갤러리 아이템 수집 및 lazy loading 구현
     const galleryItems = document.querySelectorAll('.gallGridWrapper .item');
     console.log('📸 갤러리 아이템 개수:', galleryItems.length);
+    
+    // 각 갤러리 아이템에 고유 인덱스 부여 및 이미지 URL 수집
     galleryItems.forEach((item, index) => {
         const imgUrl = item.getAttribute('data-url') || item.style.backgroundImage.match(/url\(["']?([^"']*)["']?\)/)?.[1];
+        
+        // 모든 아이템에 대해 인덱스 저장 (이미지 URL이 없어도)
+        item.setAttribute('data-gallery-index', index);
+        
         if (imgUrl) {
             images.push(imgUrl);
+            console.log(`📷 이미지 ${index + 1} 수집됨:`, imgUrl);
+            
             // 커서 포인터 스타일 추가
             item.style.cursor = 'pointer';
             
@@ -212,9 +222,13 @@ function initGalleryModal() {
         currentImageIndex = index;
         updateModal();
         
-        // 현재 스크롤 위치를 여러 방법으로 저장 (브라우저 호환성)
-        savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-        console.log('🔖 스크롤 위치 저장:', savedScrollPosition, 'px');
+        // 스크롤 위치가 이미 저장되어 있지 않으면 여기서 저장
+        if (savedScrollPosition === 0) {
+            savedScrollPosition = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            console.log('🔖 openModal에서 스크롤 위치 저장:', savedScrollPosition, 'px');
+        } else {
+            console.log('🔖 이미 저장된 스크롤 위치 사용:', savedScrollPosition, 'px');
+        }
         
         // 추가 체크: 스크롤 위치가 유효한지 확인
         if (savedScrollPosition < 0) savedScrollPosition = 0;
@@ -402,25 +416,44 @@ function initGalleryModal() {
             console.log('🖱️ 클릭 이벤트 발생! 아이템:', index + 1);
             console.log('📷 클릭된 이미지 URL:', imgUrl);
             
+            // 현재 스크롤 위치를 클릭 시점에 미리 저장 (더 안전함)
+            const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+            console.log('🔖 클릭 시점 스크롤 위치 저장:', currentScroll, 'px');
+            savedScrollPosition = currentScroll;
+            
             e.preventDefault();
             e.stopPropagation();
             e.stopImmediatePropagation();
             
             const imageIndex = images.indexOf(imgUrl);
             if (imageIndex !== -1) {
-                console.log('✅ 모달 열기, 인덱스:', imageIndex);
+                console.log('✅ 모달 열기, 인덱스:', imageIndex, '/ 저장된 스크롤:', savedScrollPosition);
                 openModal(imageIndex);
             } else {
                 console.error('❌ 이미지를 images 배열에서 찾을 수 없습니다:', imgUrl);
                 console.log('🔍 전체 이미지 목록:', images);
+                console.log('🔍 클릭된 아이템의 갤러리 인덱스:', item.getAttribute('data-gallery-index'));
                 
-                // 긴급 처치: 직접 모달 열기
-                console.log('🚑 긴급 처치: 직접 모달 열기');
+                // 강화된 긴급 처치: 스크롤 위치 저장하고 모달 열기
+                console.log('🚑 긴급 처치: 스크롤 위치 저장 후 직접 모달 열기');
                 if (modal && modalImg) {
+                    // 스크롤 위치 저장
+                    savedScrollPosition = currentScroll;
+                    
+                    // 모달 열기
                     modal.style.display = 'block';
                     modalImg.src = imgUrl;
-                    currentImageIndex = 0; // 임시 인덱스
+                    currentImageIndex = parseInt(item.getAttribute('data-gallery-index')) || 0;
+                    
+                    // 배경 스크롤 방지
                     document.body.style.overflow = 'hidden';
+                    document.body.style.position = 'fixed';
+                    document.body.style.top = `-${savedScrollPosition}px`;
+                    document.body.style.left = '0';
+                    document.body.style.right = '0';
+                    document.body.style.width = '100%';
+                    
+                    console.log('🚑 긴급 처치 완료, 저장된 스크롤:', savedScrollPosition);
                 }
             }
         };
