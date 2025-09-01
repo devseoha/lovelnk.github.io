@@ -229,24 +229,32 @@ function initGalleryModal() {
     
     function showPrevious() {
         currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
-        // window.currentGalleryIndex와 동기화
-        window.currentGalleryIndex = currentImageIndex;
         updateModal();
-        updateGalleryCounter();
     }
     
     function showNext() {
         currentImageIndex = (currentImageIndex + 1) % images.length;
-        // window.currentGalleryIndex와 동기화
-        window.currentGalleryIndex = currentImageIndex;
         updateModal();
-        updateGalleryCounter();
     }
     
     // 이벤트 리스너들
     if (closeBtn) closeBtn.addEventListener('click', closeModal);
     if (prevBtn) prevBtn.addEventListener('click', showPrevious);
     if (nextBtn) nextBtn.addEventListener('click', showNext);
+    
+    // 갤러리 아이템 클릭 이벤트 등록
+    galleryItems.forEach((item, index) => {
+        item.addEventListener('click', function() {
+            const detailImgUrl = this.getAttribute('data-url');
+            if (detailImgUrl) {
+                console.log('디테일 모달 열기:', detailImgUrl);
+                const imageIndex = images.indexOf(detailImgUrl);
+                if (imageIndex !== -1) {
+                    openModal(imageIndex);
+                }
+            }
+        });
+    });
     
     // 모달 배경 클릭 시 닫기
     if (modal) {
@@ -325,16 +333,7 @@ $(".popNoticeImg .x_button").click(function () {
     $(".popNoticeImg").removeClass("visible");
 });
 
-//=============================================
-// Gallery grid click handler
-$(".gallGridWrapper .item").click(function () {
-    // 디테일 모달에는 data-url의 큰 이미지 사용
-    const detailImgUrl = $(this).attr('data-url');
-    if (detailImgUrl) {
-        console.log('디테일 모달 열기:', detailImgUrl);
-        openGalleryModal(detailImgUrl);
-    }
-});
+
 
 //=============================================
 // Swiper initialization for various containers

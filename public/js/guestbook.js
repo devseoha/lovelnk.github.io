@@ -58,12 +58,23 @@ function openNavigationApp(appType) {
 //=============================================
 // Guestbook functionality
 
-// Initialize guestbook animations
+// Initialize guestbook animations and data
 $(document).ready(function () {
     $('.anibox_books').addClass("hd").viewportChecker({
         classToAdd: 'visible animated faster fadeInUp',
         offset: 100
     });
+    
+    // Firebase가 로드될 때까지 잠시 대기 후 초기화
+    setTimeout(() => {
+        // 방명록 미리보기 렌더링
+        renderGuestbookPreview();
+        
+        // 방명록 전체보기가 있다면 렌더링
+        if (document.querySelector("#guestbook-grid")) {
+            renderGuestbook();
+        }
+    }, 1000);
 });
 
 // Global variables
@@ -306,9 +317,93 @@ function truncateTextForFullview(text, maxLength = 130) {
     return text.substring(0, maxLength) + '...';
 }
 
+// 방명록 카드 HTML 생성
+function createGuestbookCardHTML(item) {
+    return `
+        <div class="guest-card" data-id="${item.id}" style="
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            position: relative;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        " onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'" onmouseout="this.style.transform=''; this.style.boxShadow=''">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <div style="font-weight: 600; color: #333; font-size: 16px;">${item.name}</div>
+                <div style="display: flex; gap: 8px;">
+                    <button onclick="editGuestbook(${item.id})" style="
+                        background: none; border: none; color: #999; font-size: 12px; 
+                        cursor: pointer; padding: 4px 8px; border-radius: 4px;
+                        transition: all 0.2s ease;
+                    " onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor=''">수정</button>
+                    <button onclick="deleteGuestbook(${item.id})" style="
+                        background: none; border: none; color: #999; font-size: 12px; 
+                        cursor: pointer; padding: 4px 8px; border-radius: 4px;
+                        transition: all 0.2s ease;
+                    " onmouseover="this.style.backgroundColor='#ffebee'; this.style.color='#f44336'" onmouseout="this.style.backgroundColor=''; this.style.color='#999'">삭제</button>
+                </div>
+            </div>
+            <div style="color: #555; line-height: 1.6; font-size: 14px; margin-bottom: 12px; white-space: pre-wrap;">${truncateText(item.note)}</div>
+            <div style="color: #999; font-size: 12px; text-align: right;">${item.date}</div>
+        </div>
+    `;
+}
+
+// 방명록 렌더링
+function renderGuestbook() {
+    getGuestbookData((data) => {
+        const sortedData = data.sort((a, b) => b.id - a.id); // 최신순 정렬 (DESC)
+        const grid = document.querySelector("#guestbook-grid");
+        if (!grid) return; // 그리드 요소가 없으면 종료
+        
+        grid.innerHTML = "";
+
+        if (sortedData.length === 0) {
+            // 방명록이 없을 때 카드 형태로 표시
+            const emptyCard = document.createElement("div");
+            emptyCard.style.gridColumn = "1 / -1"; // 전체 열 차지
+            emptyCard.innerHTML = `
+                <div style="background: #f8f8f8; text-align: center; padding: 40px 20px; border-radius: 10px;">
+                    <span style="color: #999; font-size: 14px;">방명록이 없습니다.</span>
+                </div>
+            `;
+            grid.appendChild(emptyCard);
+        } else {
+            sortedData.forEach(item => {
+                const card = document.createElement("div");
+                card.innerHTML = createGuestbookCardHTML(item);
+                grid.appendChild(card);
+            });
+        }
+    });
+}
+
+// 방명록 편집 및 삭제를 위한 헬퍼 함수들
+function editGuestbook(id) {
+    const password = prompt("수정할 비밀번호를 입력하세요:");
+    if (password) {
+        startEditGuestbookEntry(id, password);
+    }
+}
+
+function deleteGuestbook(id) {
+    const password = prompt("삭제할 비밀번호를 입력하세요:");
+    if (password) {
+        if (confirm("정말 삭제하시겠습니까?")) {
+            deleteGuestbookEntry(id, password);
+        }
+    }
+}
+
 // Make functions globally available
 window.openNavigationApp = openNavigationApp;
 window.addGuestbookEntry = addGuestbookEntry;
 window.deleteGuestbookEntry = deleteGuestbookEntry;
 window.startEditGuestbookEntry = startEditGuestbookEntry;
 window.renderGuestbookPreview = renderGuestbookPreview;
+window.renderGuestbook = renderGuestbook;
+window.createGuestbookCardHTML = createGuestbookCardHTML;
+window.editGuestbook = editGuestbook;
+window.deleteGuestbook = deleteGuestbook;
