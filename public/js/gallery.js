@@ -530,22 +530,81 @@ function initGalleryModal() {
             }
         };
         
-        // 다양한 방법으로 클릭 이벤트 등록 (브라우저 호환성)
-        item.addEventListener('click', clickHandler, { capture: true, passive: false });
-        item.addEventListener('mousedown', function(e) {
-            if (e.button === 0) { // 좌클릭만
-                setTimeout(() => clickHandler(e), 10);
-            }
-        });
+        // PC 클릭 이벤트만 등록 (터치 디바이스 제외)
+        if (!('ontouchstart' in window)) {
+            // 데스크톱 환경에서만 클릭 이벤트 등록
+            item.addEventListener('click', clickHandler, { capture: true, passive: false });
+            item.addEventListener('mousedown', function(e) {
+                if (e.button === 0) { // 좌클릭만
+                    setTimeout(() => clickHandler(e), 10);
+                }
+            });
+            console.log('🖥️ 데스크톱 클릭 이벤트 등록');
+        } else {
+            console.log('📱 터치 디바이스 - 터치 이벤트만 사용');
+        }
         
-        // 터치 이벤트 (모바일)
+        // 터치 이벤트 (모바일) - 스크롤과 클릭 구분
+        let touchStartX = 0;
+        let touchStartY = 0;
+        let touchStartTime = 0;
+        let isTouching = false;
+        let hasMoved = false;
+        
         item.addEventListener('touchstart', function(e) {
             console.log('👆 터치 시작!');
-        });
+            touchStartX = e.touches[0].clientX;
+            touchStartY = e.touches[0].clientY;
+            touchStartTime = Date.now();
+            isTouching = true;
+            hasMoved = false;
+        }, { passive: true });
+        
+        item.addEventListener('touchmove', function(e) {
+            if (!isTouching) return;
+            
+            const touchCurrentX = e.touches[0].clientX;
+            const touchCurrentY = e.touches[0].clientY;
+            const deltaX = Math.abs(touchCurrentX - touchStartX);
+            const deltaY = Math.abs(touchCurrentY - touchStartY);
+            
+            // 10px 이상 움직이면 스크롤로 간주
+            if (deltaX > 10 || deltaY > 10) {
+                hasMoved = true;
+                console.log('📱 터치 움직임 감지 - X:', deltaX, 'Y:', deltaY);
+            }
+        }, { passive: true });
+        
         item.addEventListener('touchend', function(e) {
             console.log('👆 터치 끝!');
-            e.preventDefault();
-            clickHandler(e);
+            
+            if (!isTouching) return;
+            
+            const touchEndTime = Date.now();
+            const touchDuration = touchEndTime - touchStartTime;
+            
+            // 터치 조건 체크
+            const isValidClick = !hasMoved && // 움직이지 않았고
+                                touchDuration > 50 && // 50ms 이상 터치하고 
+                                touchDuration < 800; // 800ms 미만 터치
+            
+            console.log('🔍 터치 분석:', {
+                hasMoved,
+                touchDuration,
+                isValidClick
+            });
+            
+            if (isValidClick) {
+                console.log('✅ 유효한 터치 클릭으로 인식');
+                e.preventDefault();
+                clickHandler(e);
+            } else {
+                console.log('❌ 스크롤로 인식 - 클릭 이벤트 무시');
+            }
+            
+            // 터치 상태 초기화
+            isTouching = false;
+            hasMoved = false;
         });
         
         // 키보드 접근성
@@ -600,30 +659,45 @@ function initGalleryModal() {
         }
     });
     
-    // 터치 스와이프 지원
-    let touchStartX = 0;
-    let touchEndX = 0;
+    // 모달 내 터치 스와이프 지원 (갤러리 이미지 전환)
+    let modalTouchStartX = 0;
+    let modalTouchEndX = 0;
+    let modalTouchStartY = 0;
+    let modalTouchEndY = 0;
+    let modalTouchStartTime = 0;
     
     if (modal) {
         modal.addEventListener('touchstart', (e) => {
-            touchStartX = e.changedTouches[0].screenX;
-        });
+            modalTouchStartX = e.changedTouches[0].screenX;
+            modalTouchStartY = e.changedTouches[0].screenY;
+            modalTouchStartTime = Date.now();
+        }, { passive: true });
         
         modal.addEventListener('touchend', (e) => {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe();
-        });
+            modalTouchEndX = e.changedTouches[0].screenX;
+            modalTouchEndY = e.changedTouches[0].screenY;
+            const touchTime = Date.now() - modalTouchStartTime;
+            
+            // 빠른 스와이프만 인식 (500ms 미만)
+            if (touchTime < 500) {
+                handleModalSwipe();
+            }
+        }, { passive: true });
     }
     
-    function handleSwipe() {
+    function handleModalSwipe() {
         const swipeThreshold = 50;
-        const diff = touchStartX - touchEndX;
+        const diffX = modalTouchStartX - modalTouchEndX;
+        const diffY = Math.abs(modalTouchStartY - modalTouchEndY);
         
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                showNext(); // 오른쪽 스와이프 -> 다음 이미지
+        // 가로 스와이프가 세로 스와이프보다 2배 이상 클 때만 인식
+        if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY * 2) {
+            if (diffX > 0) {
+                console.log('👉 다음 이미지로 스와이프');
+                showNext();
             } else {
-                showPrevious(); // 왼쪽 스와이프 -> 이전 이미지
+                console.log('👈 이전 이미지로 스와이프');
+                showPrevious();
             }
         }
     }
