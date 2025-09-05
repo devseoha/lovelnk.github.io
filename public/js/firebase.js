@@ -29,7 +29,6 @@ window.firebaseDB = {
 
 // Firebase 참석 데이터 저장 함수
 window.saveAttendanceToFirebase = function(attendanceData) {
-    console.log('🔄 Firebase 참석 정보 저장 시작:', attendanceData);
     try {
         const attendanceRef = ref(database, 'attendance');
         const newAttendance = {
@@ -39,19 +38,14 @@ window.saveAttendanceToFirebase = function(attendanceData) {
             created_at: Date.now()
         };
         
-        console.log('📝 저장할 데이터:', newAttendance);
-        
         push(attendanceRef, newAttendance)
             .then((result) => {
-                console.log('✅ Firebase 참석 정보 저장 완료:', result.key);
                 alert('참석 의사가 전달되었습니다.\n감사합니다! 💝');
             })
             .catch((error) => {
-                console.error('❌ Firebase 참석 정보 저장 실패:', error);
                 alert('참석 정보 저장에 실패했습니다. 다시 시도해주세요.');
             });
     } catch (error) {
-        console.error('❌ Firebase 참석 데이터 저장 오류:', error);
         alert('Firebase 연결에 문제가 있습니다. 잠시 후 다시 시도해주세요.');
     }
 };
@@ -68,14 +62,14 @@ window.saveVisitorToFirebase = function(visitorData) {
         };
         
         push(visitorRef, newVisitor)
-            .then((result) => {
-                console.log('✅ Firebase 방문자 정보 저장 완료:', result.key);
+            .then(() => {
+                // 성공적으로 저장됨
             })
-            .catch((error) => {
-                console.error('❌ Firebase 방문자 정보 저장 실패:', error);
+            .catch(() => {
+                // 저장 실패
             });
     } catch (error) {
-        console.error('❌ Firebase 방문자 데이터 저장 오류:', error);
+        // 오류 발생
     }
 };
 

@@ -157,7 +157,7 @@ function updateGalleryCounter() {
 
 // Gallery modal initialization
 function initGalleryModal() {
-    console.log('🎯 Gallery.js - initGalleryModal 함수 시작');
+
     
     const modal = document.getElementById('gallery-modal');
     const modalImg = document.getElementById('gallery-modal-img');
@@ -167,7 +167,7 @@ function initGalleryModal() {
     const currentSpan = document.getElementById('gallery-current');
     const totalSpan = document.getElementById('gallery-total');
     
-    console.log('🔍 모달 요소들:', { modal, modalImg, closeBtn, prevBtn, nextBtn });
+
     
     let currentImageIndex = 0;
     let images = [];
@@ -177,7 +177,7 @@ function initGalleryModal() {
     
     // 모든 갤러리 아이템 수집 및 lazy loading 구현
     const galleryItems = document.querySelectorAll('.gallGridWrapper .item');
-    console.log('📸 갤러리 아이템 개수:', galleryItems.length);
+
     
     // 각 갤러리 아이템에 고유 인덱스 부여 및 이미지 URL 수집
     galleryItems.forEach((item, index) => {
@@ -188,7 +188,7 @@ function initGalleryModal() {
         
         if (imgUrl) {
             images.push(imgUrl);
-            console.log(`📷 이미지 ${index + 1} 수집됨:`, imgUrl);
+
             
             // 커서 포인터 스타일 추가
             item.style.cursor = 'pointer';
@@ -219,7 +219,7 @@ function initGalleryModal() {
     let scrollY = 0; // 스크롤 위치 저장
     
     function openModal(index) {
-        console.log('🚀 openModal 시작, 인덱스:', index);
+
         
         currentImageIndex = index;
         updateModal();
@@ -235,16 +235,16 @@ function initGalleryModal() {
             savedScrollPosition = currentPos;
             scrollBackupPosition = currentPos;
             localStorage.setItem('galleryScrollPosition', currentPos.toString());
-            console.log('🔖 openModal에서 스크롤 위치 저장:', savedScrollPosition, 'px');
+
         } else {
-            console.log('🔖 이미 저장된 스크롤 위치 사용:', savedScrollPosition, 'px');
+
         }
         
         // localStorage에서 백업 위치 확인
         const storedPos = localStorage.getItem('galleryScrollPosition');
         if (storedPos && parseInt(storedPos) > 0) {
             scrollBackupPosition = parseInt(storedPos);
-            console.log('💾 localStorage에서 백업 위치 확인:', scrollBackupPosition, 'px');
+
         }
         
         // 추가 체크: 스크롤 위치가 유효한지 확인
@@ -260,12 +260,12 @@ function initGalleryModal() {
         document.body.style.right = '0';
         document.body.style.width = '100%';
         
-        console.log('모달 열림, 현재 이미지:', currentImageIndex + 1, '/', images.length);
+
     }
     
     function closeModal() {
-        console.log('🚪 모달 닫기 시작');
-        console.log('📊 스크롤 위치 상태 - 메인:', savedScrollPosition, '백업:', scrollBackupPosition);
+
+
         
         // 모달 상태 업데이트
         isModalOpen = false;
@@ -276,7 +276,7 @@ function initGalleryModal() {
         // 메인 위치가 0이면 백업 위치 사용
         if (targetScrollPosition === 0 || targetScrollPosition === undefined) {
             targetScrollPosition = scrollBackupPosition;
-            console.log('⚠️ 메인 위치가 0이므로 백업 위치 사용:', targetScrollPosition);
+
         }
         
         // 백업도 0이면 localStorage에서 복구 시도
@@ -284,11 +284,11 @@ function initGalleryModal() {
             const storedPos = localStorage.getItem('galleryScrollPosition');
             if (storedPos && parseInt(storedPos) > 0) {
                 targetScrollPosition = parseInt(storedPos);
-                console.log('💾 localStorage에서 위치 복구:', targetScrollPosition);
+
             }
         }
         
-        console.log('🎯 최종 복원 목표 위치:', targetScrollPosition, 'px');
+
         
         modal.style.display = 'none';
         
@@ -301,7 +301,7 @@ function initGalleryModal() {
         document.body.style.width = '';
         
         // 강력한 스크롤 위치 복원 (다단계 방법)
-        console.log('🔄 스크롤 복원 시작, 목표 위치:', targetScrollPosition, 'px');
+
         
         // 1단계: 즉시 복원
         if (window.scrollTo && targetScrollPosition > 0) {
@@ -311,13 +311,13 @@ function initGalleryModal() {
                     left: 0,
                     behavior: 'instant'
                 });
-                console.log('✅ 1단계 스크롤 복원 완료');
+
             } catch (e) {
-                console.log('⚠️ 1단계 실패, 백업 방법 사용');
+
                 window.scrollTo(0, targetScrollPosition);
             }
         } else {
-            console.log('⚠️ 스크롤 복원 불가 - 대상 위치:', targetScrollPosition);
+
         }
         
         // 2단계: 여러 방법으로 재시도 (10ms 후)
@@ -325,7 +325,7 @@ function initGalleryModal() {
             if (!isModalOpen && targetScrollPosition > 0) { // 모달이 닫혔을 때만 실행
                 const currentPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
                 if (Math.abs(currentPos - targetScrollPosition) > 5) { // 5px 이상 차이나면 재시도
-                    console.log('📍 2단계 백업 스크롤 복원 실행, 현재:', currentPos, '목표:', targetScrollPosition);
+
                     
                     // 여러 방법으로 시도
                     window.scrollTo(0, targetScrollPosition);
@@ -344,9 +344,9 @@ function initGalleryModal() {
         setTimeout(() => {
             if (!isModalOpen && targetScrollPosition > 0) {
                 const finalPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-                console.log('🎯 3단계 스크롤 위치:', finalPos, 'px (목표:', targetScrollPosition, 'px)');
+
                 if (Math.abs(finalPos - targetScrollPosition) > 5) {
-                    console.log('⚠️ 3단계 강제 스크롤 복원');
+
                     window.scrollTo(0, targetScrollPosition);
                 }
             }
@@ -357,7 +357,7 @@ function initGalleryModal() {
             if (!isModalOpen && targetScrollPosition > 0) {
                 const veryFinalPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
                 if (Math.abs(veryFinalPos - targetScrollPosition) > 10) {
-                    console.log('🔧 4단계 특별 스크롤 복원:', veryFinalPos, '->', targetScrollPosition);
+
                     
                     // 모든 가능한 방법으로 스크롤 복원
                     try {
@@ -384,7 +384,7 @@ function initGalleryModal() {
             if (!isModalOpen) {
                 const ultimatePos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
                 if (ultimatePos === 0 && targetScrollPosition > 0) {
-                    console.log('🚨 5단계 긴급 복원! 현재:', ultimatePos, '목표:', targetScrollPosition);
+
                     window.scrollTo(0, targetScrollPosition);
                     
                     // localStorage 정리
@@ -393,7 +393,7 @@ function initGalleryModal() {
             }
         }, 500);
         
-        console.log('✅ 모달 닫힘, 스크롤 위치 복원 완료');
+
     }
     
     function updateModal() {
@@ -424,7 +424,7 @@ function initGalleryModal() {
     // 이벤트 리스너들
     if (closeBtn) {
         closeBtn.addEventListener('click', function(e) {
-            console.log('❌ X 버튼 클릭됨, 현재 저장된 스크롤 위치:', savedScrollPosition);
+
             e.preventDefault(); // 기본 동작 방지
             e.stopPropagation(); // 이벤트 버블링 방지
             e.stopImmediatePropagation(); // 다른 이벤트 리스너 실행 방지
@@ -452,10 +452,9 @@ function initGalleryModal() {
             }
         }
         
-        console.log(`🖼️ 갤러리 아이템 ${index + 1}: ${imgUrl}`);
+
         
         if (!imgUrl) {
-            console.error(`❌ 아이템 ${index + 1}에 이미지 URL이 없습니다:`, item);
             return; // 이미지 URL이 없으면 이벤트 등록하지 않음
         }
         
@@ -477,12 +476,12 @@ function initGalleryModal() {
         
         // 메인 클릭 이벤트 (가장 중요!)
         const clickHandler = function(e) {
-            console.log('🖱️ 클릭 이벤트 발생! 아이템:', index + 1, '(10번째 이미지 확인)');
-            console.log('📷 클릭된 이미지 URL:', imgUrl);
+
+
             
             // 현재 스크롤 위치를 여러 방법으로 저장 (더 안전함)
             const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            console.log('🔖 클릭 시점 스크롤 위치 저장:', currentScroll, 'px');
+
             
             // 메인과 백업 위치 모두 저장
             savedScrollPosition = currentScroll;
@@ -491,7 +490,7 @@ function initGalleryModal() {
             // 추가 안전장치: localStorage에도 저장
             localStorage.setItem('galleryScrollPosition', currentScroll.toString());
             
-            console.log('💾 스크롤 위치 다중 저장 완료 - 메인:', savedScrollPosition, '백업:', scrollBackupPosition);
+
             
             e.preventDefault();
             e.stopPropagation();
@@ -499,15 +498,15 @@ function initGalleryModal() {
             
             const imageIndex = images.indexOf(imgUrl);
             if (imageIndex !== -1) {
-                console.log('✅ 모달 열기, 인덱스:', imageIndex, '/ 저장된 스크롤:', savedScrollPosition);
+
                 openModal(imageIndex);
             } else {
                 console.error('❌ 이미지를 images 배열에서 찾을 수 없습니다:', imgUrl);
-                console.log('🔍 전체 이미지 목록:', images);
-                console.log('🔍 클릭된 아이템의 갤러리 인덱스:', item.getAttribute('data-gallery-index'));
+
+
                 
                 // 강화된 긴급 처치: 스크롤 위치 저장하고 모달 열기
-                console.log('🚑 긴급 처치: 스크롤 위치 저장 후 직접 모달 열기');
+
                 if (modal && modalImg) {
                     // 스크롤 위치 저장
                     savedScrollPosition = currentScroll;
@@ -525,7 +524,7 @@ function initGalleryModal() {
                     document.body.style.right = '0';
                     document.body.style.width = '100%';
                     
-                    console.log('🚑 긴급 처치 완료, 저장된 스크롤:', savedScrollPosition);
+
                 }
             }
         };
@@ -539,9 +538,9 @@ function initGalleryModal() {
                     setTimeout(() => clickHandler(e), 10);
                 }
             });
-            console.log('🖥️ 데스크톱 클릭 이벤트 등록');
+
         } else {
-            console.log('📱 터치 디바이스 - 터치 이벤트만 사용');
+
         }
         
         // 터치 이벤트 (모바일) - 스크롤과 클릭 구분
@@ -552,7 +551,7 @@ function initGalleryModal() {
         let hasMoved = false;
         
         item.addEventListener('touchstart', function(e) {
-            console.log('👆 터치 시작!');
+
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
             touchStartTime = Date.now();
@@ -571,12 +570,12 @@ function initGalleryModal() {
             // 10px 이상 움직이면 스크롤로 간주
             if (deltaX > 10 || deltaY > 10) {
                 hasMoved = true;
-                console.log('📱 터치 움직임 감지 - X:', deltaX, 'Y:', deltaY);
+
             }
         }, { passive: true });
         
         item.addEventListener('touchend', function(e) {
-            console.log('👆 터치 끝!');
+
             
             if (!isTouching) return;
             
@@ -588,18 +587,18 @@ function initGalleryModal() {
                                 touchDuration > 50 && // 50ms 이상 터치하고 
                                 touchDuration < 800; // 800ms 미만 터치
             
-            console.log('🔍 터치 분석:', {
+
                 hasMoved,
                 touchDuration,
                 isValidClick
             });
             
             if (isValidClick) {
-                console.log('✅ 유효한 터치 클릭으로 인식');
+
                 e.preventDefault();
                 clickHandler(e);
             } else {
-                console.log('❌ 스크롤로 인식 - 클릭 이벤트 무시');
+
             }
             
             // 터치 상태 초기화
@@ -616,14 +615,14 @@ function initGalleryModal() {
             }
         });
         
-        console.log(`✅ 아이템 ${index + 1} 모든 이벤트 등록 완료`);
+
     });
     
     // 모달 배경 클릭 시 닫기
     if (modal) {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
-                console.log('🎯 배경 클릭됨, 현재 저장된 스크롤 위치:', savedScrollPosition);
+
                 e.preventDefault();
                 e.stopPropagation();
                 
@@ -644,7 +643,7 @@ function initGalleryModal() {
         if (modal && modal.style.display === 'block') {
             switch(e.key) {
                 case 'Escape':
-                    console.log('⌨️ ESC 키 눌림, 현재 저장된 스크롤 위치:', savedScrollPosition);
+
                     e.preventDefault();
                     e.stopPropagation();
                     closeModal();
@@ -693,10 +692,10 @@ function initGalleryModal() {
         // 가로 스와이프가 세로 스와이프보다 2배 이상 클 때만 인식
         if (Math.abs(diffX) > swipeThreshold && Math.abs(diffX) > diffY * 2) {
             if (diffX > 0) {
-                console.log('👉 다음 이미지로 스와이프');
+
                 showNext();
             } else {
-                console.log('👈 이전 이미지로 스와이프');
+
                 showPrevious();
             }
         }
@@ -749,16 +748,16 @@ if (document.getElementById('popNoticeImgWrap')) {
 //=============================================
 // Gallery 자동 초기화 - DOM이 로드되면 실행
 $(document).ready(function() {
-    console.log('📱 Gallery.js - DOM ready 이벤트 발생');
-    console.log('🔍 Gallery.js - initGalleryModal 함수 존재 여부:', typeof initGalleryModal);
+
+
     
     // DOM 로드 완료 후 잠시 대기하여 모든 요소가 준비되도록 함
     setTimeout(() => {
-        console.log('⏰ Gallery.js - 지연 후 initGalleryModal 호출');
+
         if (typeof initGalleryModal === 'function') {
             initGalleryModal();
         } else {
-            console.error('❌ initGalleryModal 함수를 찾을 수 없습니다');
+            // initGalleryModal 함수를 찾을 수 없음
         }
     }, 100);
 });

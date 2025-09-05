@@ -474,9 +474,6 @@
 
         // 페이지 로드 완료 후 관리자 함수 안내
         window.addEventListener('load', () => {
-            console.log('🔧 관리자 명령어:');
-            console.log('- getAttendanceData(): 참석 정보 조회');
-            console.log('- getVisitorData(): 방문자 데이터 조회');
         });
     </script>
 
@@ -1430,15 +1427,12 @@
 
 
         <div class="introMent anibox f17 hd visible animated fadeInUp">
-
-
             <div id="intro-ment-area">
-                <br/>
                 <p>하얀 겨울, 따뜻한 마음으로<br/>서로의 온기가 되어주려 합니다.<br/><br/>서로에게 가장 편안한 친구가 되어<br/>평생 서로 귀하게 여기며<br/>함께 웃고 울며 재미있게 살아가겠습니다.<br/><br/>
                     바른 마음으로 사랑을 지키며<br/>
                     함께 걷는 새로운 길에<br/>
-                    많은 응원과 축복 부탁드립니다.</p></div>
-
+                    많은 응원과 축복 부탁드립니다.</p>
+            </div>
         </div>
 
         <div style="padding: 0 20px 30px 20px;">
@@ -4400,8 +4394,7 @@
                 
                 <div class="bottom" style="font-size: 12px; display: flex; justify-content: space-between; align-items: center; padding-top: 10px; border-top: 1px solid rgba(0,0,0,0.08); position: absolute; bottom: 15px; left: 20px; right: 20px;">
                     <span style="color: #adb5bd; font-size: 10px;">${item.date}</span>
-                    <button onclick="startEditGuestbookEntry(${item.id}, prompt('비밀번호를 입력하세요'))" 
-                            style="background: #495057; color: #fff; border: none; padding: 4px 6px; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 400; transition: background 0.2s;" onmouseover="this.style.background='#343a40'" onmouseout="this.style.background='#495057'">수정</button>
+                    <button onclick="startEditGuestbookEntry(${item.id}, prompt('비밀번호를 입력하세요'))" style="background: #495057; color: #fff; border: none; padding: 4px 6px; border-radius: 6px; font-size: 10px; cursor: pointer; font-weight: 400; transition: background 0.2s; white-space: nowrap;" onmouseover="this.style.background='#343a40'" onmouseout="this.style.background='#495057'">수정</button>
                 </div>
             </div>
         `;
@@ -4741,7 +4734,6 @@
                 
                 saveVisitorData(visitorData);
                 sendToGoogleSheets(visitorData);
-                console.log('✅ 방문자 정보 수집 및 Google Sheets 업로드 완료:', visitorData);
             })
             .catch(error => {
                 console.warn('IP 정보 수집 실패, 기본 정보만 저장:', error);
@@ -4783,13 +4775,10 @@
         .then(response => response.json())
         .then(result => {
             if (result.success) {
-                console.log('🎉 Google Sheets 업로드 성공!');
             } else {
-                console.error('❌ Google Sheets 업로드 실패:', result.error);
             }
         })
         .catch(error => {
-            console.error('❌ Google Sheets 전송 오류:', error);
         });
     }
     
@@ -4938,6 +4927,7 @@
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps-geocoder.js"></script>
 
@@ -5185,6 +5175,7 @@ document.addEventListener('click', function(e) {
         closeAttendancePopup();
     }
 });
+
 </script>
 
 <!-- External JavaScript Files -->

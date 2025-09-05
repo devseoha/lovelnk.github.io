@@ -330,11 +330,7 @@ function createGuestbookCardHTML(item) {
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
                 <div style="font-weight: 600; color: #333; font-size: 16px;">${item.name}</div>
                 <div style="display: flex; gap: 8px;">
-                    <button onclick="editGuestbook(${item.id})" style="
-                        background: none; border: none; color: #999; font-size: 12px; 
-                        cursor: pointer; padding: 4px 8px; border-radius: 4px;
-                        transition: all 0.2s ease;
-                    " onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor=''">수정</button>
+                    <button onclick="editGuestbook(${item.id})" style="background: none; border: none; color: #999; font-size: 12px; cursor: pointer; padding: 4px 8px; border-radius: 4px; transition: all 0.2s ease; white-space: nowrap;" onmouseover="this.style.backgroundColor='#f0f0f0'" onmouseout="this.style.backgroundColor=''">수정</button>
                     <button onclick="deleteGuestbook(${item.id})" style="
                         background: none; border: none; color: #999; font-size: 12px; 
                         cursor: pointer; padding: 4px 8px; border-radius: 4px;
