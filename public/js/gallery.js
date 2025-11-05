@@ -157,10 +157,8 @@ function updateGalleryCounter() {
 
 // Gallery modal initialization
 function initGalleryModal() {
-    console.log('🚀 initGalleryModal 함수 시작');
     
     const modal = document.getElementById('gallery-modal');
-    console.log('🔍 모달 요소:', modal);
     const modalImg = document.getElementById('gallery-modal-img');
     const closeBtn = document.querySelector('.gallery-modal-close');
     const prevBtn = document.querySelector('.gallery-modal-prev');
@@ -440,11 +438,9 @@ function initGalleryModal() {
     if (nextBtn) nextBtn.addEventListener('click', showNext);
     
     // 갤러리 아이템 클릭 이벤트 등록 (PC와 모바일 모두 지원)
-    console.log('📋 갤러리 아이템에 클릭 이벤트 등록 중. 총 아이템 수:', galleryItems.length);
     galleryItems.forEach((item, index) => {
         // data-url 또는 background-image에서 이미지 URL 추출 (더 강력한 방법)
         let imgUrl = item.getAttribute('data-url');
-        console.log(`📋 아이템 ${index}: URL=${imgUrl}`);
         if (!imgUrl) {
             const bgImage = window.getComputedStyle(item).backgroundImage;
             const match = bgImage.match(/url\(["']?([^"']*)["']?\)/);
@@ -479,11 +475,9 @@ function initGalleryModal() {
         
         // 메인 클릭 이벤트 (가장 중요!)
         const clickHandler = function(e) {
-            console.log('🎯 갤러리 아이템 클릭됨!', imgUrl);
             
             // 현재 스크롤 위치를 여러 방법으로 저장 (더 안전함)
             const currentScroll = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
-            console.log('📍 현재 스크롤 위치:', currentScroll);
             
             // 메인과 백업 위치 모두 저장
             savedScrollPosition = currentScroll;
@@ -534,7 +528,6 @@ function initGalleryModal() {
         // PC 클릭 이벤트만 등록 (터치 디바이스 제외)
         if (!('ontouchstart' in window)) {
             // 데스크톱 환경에서만 클릭 이벤트 등록
-            console.log('🖱️ PC 클릭 이벤트 등록:', imgUrl);
             item.addEventListener('click', clickHandler, { capture: true, passive: false });
             item.addEventListener('mousedown', function(e) {
                 if (e.button === 0) { // 좌클릭만
@@ -542,7 +535,6 @@ function initGalleryModal() {
                 }
             });
         } else {
-            console.log('📱 터치 디바이스 감지됨:', imgUrl);
         }
         
         // 터치 이벤트 (모바일) - 스크롤과 클릭 구분
@@ -577,7 +569,6 @@ function initGalleryModal() {
         }, { passive: true });
         
         item.addEventListener('touchend', function(e) {
-            console.log('👆 터치 종료');
             
             if (!isTouching) return;
             
@@ -588,19 +579,11 @@ function initGalleryModal() {
             const isValidClick = !hasMoved && // 움직이지 않았고
                                 touchDuration > 50 && // 50ms 이상 터치하고 
                                 touchDuration < 800; // 800ms 미만 터치
-            
-            console.log('👆 터치 분석:', {
-                hasMoved,
-                touchDuration,
-                isValidClick
-            });
-            
+
             if (isValidClick) {
-                console.log('✅ 유효한 터치 클릭으로 판정');
                 e.preventDefault();
                 clickHandler(e);
             } else {
-                console.log('❌ 무효한 터치 클릭으로 판정');
             }
             
             // 터치 상태 초기화
@@ -750,22 +733,15 @@ if (document.getElementById('popNoticeImgWrap')) {
 //=============================================
 // Gallery 자동 초기화 - DOM이 로드되면 실행
 $(document).ready(function() {
-    console.log('🎯 Gallery.js DOM 로드 완료');
     
     // DOM 로드 완료 후 잠시 대기하여 모든 요소가 준비되도록 함
     setTimeout(() => {
-        console.log('🎯 Gallery.js setTimeout 실행');
         
         // 갤러리 아이템이 있는지 확인
         const galleryItems = document.querySelectorAll('.gallGridWrapper .item');
-        console.log('🎯 갤러리 아이템 수:', galleryItems.length);
         
         if (typeof initGalleryModal === 'function') {
-            console.log('🎯 initGalleryModal 함수 호출 중...');
             initGalleryModal();
-            console.log('🎯 initGalleryModal 함수 호출 완료');
-        } else {
-            console.error('❌ initGalleryModal 함수를 찾을 수 없음');
         }
     }, 500); // 시간을 500ms로 늘림
 });

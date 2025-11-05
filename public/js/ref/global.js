@@ -50,7 +50,6 @@ var check = {
     isId : function(e) {
         var idReg = /^[a-z]+[a-z0-9]{3,19}$/g;
         if(!idReg.test(e)) {
-            console.log("�꾩씠�붾뒗 �곷Ц�먮줈 �쒖옉�섎뒗 6~20�� �곷Ц�� �먮뒗 �レ옄�댁뼱�� �⑸땲��.");
             return false;
         }
         return true;
@@ -63,11 +62,9 @@ var check = {
         var spe = pw.search(/[`~!@@#$%^&*|�⒱궔��'��";:��/?]/gi);
 
         if(pw.length < 8 || pw.length > 20){
-            console.log("8�먮━ ~ 20�먮━ �대궡濡� �낅젰�댁＜�몄슂.");
             return false;
         }
         if(pw.search(/�쯵/) != -1){
-            console.log("鍮꾨�踰덊샇�� 怨듬갚�낆씠 �낅젰�댁＜�몄슂.");
             return false;
         }
         if(num < 0 || eng < 0 || spe < 0 ){

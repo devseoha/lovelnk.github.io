@@ -78,7 +78,6 @@ window.getAttendanceData = function() {
     const attendanceRef = ref(database, 'attendance');
     onValue(attendanceRef, (snapshot) => {
         const data = snapshot.val();
-        console.log('📊 참석 정보 데이터:', data);
         if (data) {
             const entries = Object.entries(data).map(([key, value]) => ({
                 id: key,
@@ -86,7 +85,6 @@ window.getAttendanceData = function() {
             }));
             console.table(entries);
         } else {
-            console.log('참석 정보가 없습니다.');
         }
     });
 };
@@ -95,7 +93,6 @@ window.getVisitorData = function() {
     const visitorRef = ref(database, 'visitors');
     onValue(visitorRef, (snapshot) => {
         const data = snapshot.val();
-        console.log('👥 방문자 데이터:', data);
         if (data) {
             const entries = Object.entries(data).map(([key, value]) => ({
                 id: key,
@@ -103,14 +100,10 @@ window.getVisitorData = function() {
             }));
             console.table(entries);
         } else {
-            console.log('방문자 데이터가 없습니다.');
         }
     });
 };
 
 // 페이지 로드 완료 후 관리자 함수 안내
 window.addEventListener('load', () => {
-    console.log('🔧 관리자 명령어:');
-    console.log('- getAttendanceData(): 참석 정보 조회');
-    console.log('- getVisitorData(): 방문자 데이터 조회');
 });
