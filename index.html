@@ -421,14 +421,8 @@
                 };
 
                 push(visitorRef, newVisitor)
-                    .then((result) => {
-                        console.log('✅ Firebase 방문자 정보 저장 완료:', result.key);
-                    })
-                    .catch((error) => {
-                        console.error('❌ Firebase 방문자 정보 저장 실패:', error);
-                    });
             } catch (error) {
-                console.error('❌ Firebase 방문자 데이터 저장 오류:', error);
+
             }
         };
 
@@ -3398,27 +3392,8 @@
     }
 
     $(document).ready(function () {
-        console.log('%c🎊 축하합니다! 개발자의 눈을 발견했습니다! 🎊',
+        console.log('%c🎊 감사합니다. 잘 살아 볼께요오 -서하쓰- 🎊',
             'background: linear-gradient(90deg, #ff69b4, #ff6b9d, #ffd93d, #6c5ce7, #a29bfe, #fd79a8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-size: 16px; font-weight: 800; text-shadow: 2px 2px 4px rgba(0,0,0,0.3);');
-
-        console.log('%c💝 제 모청을 봐주셔서 감사합니당 💝',
-            'color: #ff69b4; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 2px rgba(0,0,0,0.2);');
-
-        console.log('%c🌸 36살 조금은 늦은 나이에 어찌저찌 결혼이라는 것을 하네요.😆',
-            'color: #ffd93d; font-size: 12px; font-weight: bold;');
-
-        console.log('%c🎭 이왕 결혼 하는거 오랜시간 평화롭게 인생이라는 게임의 수많은 퀘스트를 잘 깨보겠습니다. ⭐️',
-            'color: #6c5ce7; font-size: 12px; font-weight: bold;');
-
-        console.log('%c🫶 아니 근데 왜 개발자모드를 키신거죠? "리얼 개발 미친자" 시군요? 😂',
-            'color: #a29bfe; font-size: 12px; font-weight: bold;');
-
-        console.log('%c🔥 카톡 주시면 소정의 미친자 소리를 선물해드리겠습니다. 🤣',
-            'color: #fd79a8; font-size: 12px; font-weight: bold;');
-
-        console.log('%c🙇🏻‍♀️ 모청 봐주셔서 감사합니다! - 서하쓰 드림 💌',
-            'color: #ff6b9d; font-size: 14px; font-weight: bold; text-decoration: underline;');
-        
         try {
             naver.maps.onJSContentLoaded = naverMapXY;
             naver.maps.Event.once(NAVER_MAP, 'init_stylemap', naverMapXY);
