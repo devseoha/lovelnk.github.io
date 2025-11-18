@@ -982,6 +982,9 @@
         $(".pageCover").addClass("blur6");
         $(".popImg").addClass("visible");
     }
+    
+    // 전역 함수로 명시적 노출
+    window.openMapImg = openMapImg;
 
     var mySwiper = new Swiper('#roughMapContainer', {
         // Optional parameters
@@ -1276,10 +1279,35 @@
     </div>
 </div>
 <script>
+    // 연락하기 팝업 열기 함수
+    function openContactPop() {
+        // 현재 스크롤 위치 저장 (여러 브라우저 호환)
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+        window.WIN_SCR_TOP = scrollTop;
+        
+        $("body").addClass("pop_contact_open");
+        $("body").css({
+            "position": "fixed",
+            "top": -scrollTop + "px",
+            "width": "100%"
+        });
+    }
+    
+    // 전역으로 노출
+    window.openContactPop = openContactPop;
+    
+    // 연락하기 팝업 닫기
     $("#tel_popup .x_button").click(function () {
         $("body").removeClass("pop_contact_open");
-        $('html,body').css("overflow", "");
-        window.scrollTo(0, WIN_SCR_TOP);
+        
+        const scrollTop = window.WIN_SCR_TOP || 0;
+        $("body").css({
+            "position": "",
+            "top": "",
+            "width": ""
+        });
+        
+        window.scrollTo(0, scrollTop);
     });
 </script>
 
@@ -1528,8 +1556,8 @@
             </div>
 
             <div class="telArea">
-                <a class="int_buttn" onclick="openContactPop()">📞&nbsp;연락하기</a>
-                <a class="int_buttn" onclick="openAttendancePopup()" style="margin-top: 10px; background: #d4a574;">✉️&nbsp;참석의사 전달</a>
+                <a class="int_buttn" href="javascript:void(0);" onclick="openContactPop()">📞&nbsp;연락하기</a>
+                <a class="int_buttn" href="javascript:void(0);" onclick="openAttendancePopup()" style="margin-top: 10px; background: #d4a574;">✉️&nbsp;참석의사 전달</a>
             </div>
         </div>
     </div>
@@ -1743,6 +1771,9 @@
                         e.innerHTML = '더보기&nbsp;&nbsp;<svg class="chevron-icon" width="12" height="12" viewBox="0 0 24 24" fill="#777" style="transition: transform 0.3s ease;"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>'
                     }
                 }
+                
+                // 전역 함수로 명시적 노출
+                window.gallMore = gallMore;
 
                 function setGrid() {
                     if (window.innerWidth < 425) {
@@ -3677,6 +3708,11 @@
         }
     }
     
+    // 전역 함수로 명시적 노출
+    window.toggleMute = toggleMute;
+    window.togglePlayPause = togglePlayPause;
+    window.toggleFullscreen = toggleFullscreen;
+    
     // 전체화면 상태 변화 감지
     document.addEventListener('fullscreenchange', updateFullscreenIcon);
     document.addEventListener('webkitfullscreenchange', updateFullscreenIcon);
@@ -4953,6 +4989,10 @@ function closeAttendancePopup() {
     document.body.style.overflow = 'auto';
     document.getElementById('attendance-form').reset();
 }
+
+// 전역 함수로 명시적 노출
+window.openAttendancePopup = openAttendancePopup;
+window.closeAttendancePopup = closeAttendancePopup;
 
 function submitAttendance(event) {
     event.preventDefault();

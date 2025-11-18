@@ -699,6 +699,9 @@ function openMapImg() {
     $(".popImg").addClass("visible");
 }
 
+// 전역 함수로 명시적 노출
+window.openMapImg = openMapImg;
+
 $(".popNoticeImg .x_button").click(function () {
     $(".pageCover").removeClass("blur6");
     $(".popNoticeImg").removeClass("visible");

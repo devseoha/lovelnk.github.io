@@ -31,12 +31,18 @@ function openContactPop() {
     $("html,body").css("overflow", "hidden");
 }
 
+// 전역 함수로 명시적 노출
+window.openContactPop = openContactPop;
+
 function openInterviewPop() {
     $("body").addClass("pop_interview_open");
     const top = document.querySelector('html').scrollTop;
     WIN_SCR_TOP = top;
     $("html,body").css("overflow", "hidden");
 }
+
+// 전역 함수로 명시적 노출
+window.openInterviewPop = openInterviewPop;
 
 function youtube_parser(url) {
     var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -80,7 +86,11 @@ function closeAcctBox() {
     $("#acctBox").css("display", "none");
 }
 
-// �대┰蹂대뱶 蹂듭궗 湲곕뒫
+// 전역 함수로 명시적 노출
+window.openAcctBox = openAcctBox;
+window.closeAcctBox = closeAcctBox;
+
+// �대┰蹂대뱶 蹂듭궗 湲곕뒽
 function copy_to_clipboard(txtId) {
     /*var copyText = document.getElementById(txtId);
     copyText.select();
@@ -99,6 +109,9 @@ function copy_to_clipboard(txtId) {
     document.querySelector(`.acc_copy`).style.display = 'block'
     document.querySelector(`#acctBox`).style.display = 'none'
 }
+
+// 전역 함수로 명시적 노출
+window.copy_to_clipboard = copy_to_clipboard;
 
 function copy_to_clipboard2(txtId) {
     /*var copyText = document.getElementById(txtId);
